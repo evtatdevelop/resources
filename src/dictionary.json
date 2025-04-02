@@ -1,0 +1,12 @@
+{
+  "ams_order_form": {
+    "EN": "Application Management System",
+    "RU": "Автоматизированная система управления заявками (АСУЗ)",
+    "ZH": "应用管理系统"
+  },
+  "asuz_portal": {
+    "EN": "ASUZ Portal",
+    "RU": "Портал АСУЗ",
+    "ZH": "ASUZ 网络门户"
+  }
+}
