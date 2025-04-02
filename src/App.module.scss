@@ -1,7 +1,14 @@
 .app {
   display: flex;
-  height: 100vh;
   width: 100%;
   align-items: center;
   justify-content: center;
+  background-color: #c5c5c5;
+
+  & > div {
+    min-height: 100vh;
+    width: 1200px;
+    border: 15px solid #e4e4e4;
+    background-color: white;
+  }
 }

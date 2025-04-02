@@ -2,8 +2,8 @@
 import { useEffect,  } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import styles from './App.module.scss';
-import { Routes, Route } from 'react-router';
-import { pathBase } from './config';
+// import { Routes, Route } from 'react-router';
+// import { pathBase } from './config';
 import { langMode, setLangMode, } from "./appSlice";
 import { getRemote, remoteUser, remoteLoading, } from "./features/user/userSlice";
 
@@ -27,11 +27,12 @@ function App() {
   return (
     <div className={styles.app}>
       { !remoteLoad
-        ? <Routes>
-            <Route path={`/`} > 
-              <Route path={`${pathBase}/`} element={<div>Resources</div>}/>
-            </Route>
-          </Routes>
+        // ? <Routes>
+        //     <Route path={`/`} > 
+        //       <Route path={`${pathBase}/`} element={<div>Resources</div>}/>
+        //     </Route>
+        //   </Routes>
+        ? <div></div>
         : null
       }
   </div>
