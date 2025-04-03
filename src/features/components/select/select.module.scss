@@ -1,0 +1,140 @@
+.select {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  // position: relative;
+  width: 100%;
+
+  .input {
+    display: flex;
+    align-items: center;
+    // position: relative;
+    width: 100%;
+
+    .htmInput {
+      width: 100%;
+      padding: 12px 30px 12px 12px;
+      font: inherit;
+      letter-spacing: 0.1px;
+      font-size: inherit;
+      font-weight: 400;
+      color: #424242;
+      border: 0.1vmax solid #c0c0c0;
+      border-radius: 2px;
+      background-color: transparent;
+      transition: background-color 1s;
+
+      &:focus {
+        &:not(readOnly) {
+          outline: none;
+          background-color: rgba(135, 206, 250, 0.5);
+        }
+      }
+    }
+
+    .clearBtn {
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      right: 0;
+      border: none;
+      padding: 0;
+      margin: 0;
+      background-color: transparent;
+      width: 30px;
+      height: 30px;
+      color: gray;
+      transition: color 0.3s;
+      font-size: 24px;
+      font-weight: 100;
+      opacity: 0;
+      transition: opacity 0.3s;
+      border-radius: 2px;
+
+      &.showClnBtn {
+        opacity: 1;
+      }
+
+      &:focus,
+      &:hover {
+        color: red;
+      }
+    }
+  }
+
+  .selectList {
+    position: absolute;
+    // bottom: 0; // Open UP !!!!
+    z-index: 99;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-top: 48px;
+    border: 0.1vmax solid lightskyblue;
+    transition: opacity 0.3s, max-height 0.5s;
+    background-color: rgb(238, 238, 249);
+
+    &.hideSelectList {
+      max-height: 0px;
+      overflow: hidden;
+      opacity: 0;
+    }
+
+    &.showSelectList {
+      // max-height: 15vmax;
+      max-height: 25vh;
+      overflow: auto;
+      opacity: 1;
+    }
+
+    .itemLi {
+      width: 100%;
+      margin-bottom: 1px;
+
+      label {
+        font-weight: 400;
+        display: block;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(135, 206, 250, 0.5);
+        padding: 10px 10px 10px 10px;
+        transition: background-color 0.3s;
+        border-radius: 2px;
+        color: #424242;
+      }
+
+      input[type='radio'] {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        border: 0;
+        padding: 0;
+        clip: rect(0 0 0 0);
+        overflow: hidden;
+
+        &:focus,
+        &:hover {
+          & + label {
+            background-color: lightskyblue;
+          }
+        }
+      }
+    }
+
+    overflow-y: scroll;
+    scrollbar-width: 3px;
+    scrollbar-color: lightblue lightskyblue;
+    &::-webkit-scrollbar {
+      width: 3px;
+    }
+    // &::-webkit-scrollbar-track { background: rgb(152, 226, 251); }
+    // &::-webkit-scrollbar-thumb { background-color: rgb(40, 197, 250); }
+  }
+}

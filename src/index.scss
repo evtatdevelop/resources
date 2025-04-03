@@ -13,7 +13,7 @@ body {
   src: local('segoeui'), url('./fonts/segoeui.ttf') format('truetype');
 }
 
-// @font-face {
-//   font-family: 'pragmaticaextralight';
-//   src: local('segoeui'), url('./fonts/pragmaticaextralight.woff') format('woff');
-// }
+@font-face {
+  font-family: 'pragmaticaextralight';
+  src: local('segoeui'), url('./fonts/pragmaticaextralight.woff') format('woff');
+}

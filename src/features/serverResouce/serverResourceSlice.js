@@ -1,17 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getResourceTypes } from "./appSliceAPI";
+import { getResourceTypes } from "./serverResourceSliceAPI";
 
 const initialState = {
   loading: false,
-  darkTheme: false,
-  langMode: null,
-  resourceTypes: [],
 }
 
-export const getResourceList = createAsyncThunk( 'app/getResourceList', async () => await getResourceTypes({}) );
+export const getResourceList = createAsyncThunk( 'serverResource/getResourceList', async () => await getResourceTypes({}) );
 
-export const appSlice = createSlice({
-  name: 'app',
+export const serverResourceSlice = createSlice({
+  name: 'serverResource',
   initialState,
   reducers: {
 
@@ -36,11 +33,8 @@ export const appSlice = createSlice({
   }
 });
 
-export const { setTheme, setLangMode } = appSlice.actions;
+export const { setTheme, setLangMode } = serverResourceSlice.actions;
 
-export const darkTheme = ( state ) => state.app.darkTheme;
-export const langMode = ( state ) => state.app.langMode;
-export const loading = ( state ) => state.app.loading;
-export const resourceTypes = ( state ) => state.app.resourceTypes;
+export const loading = ( state ) => state.serverResource.loading;
 
-export default appSlice.reducer;
+export default serverResourceSlice.reducer;

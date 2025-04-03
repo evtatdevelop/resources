@@ -1,0 +1,70 @@
+.input {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+
+  .htmInput {
+    width: 100%;
+    padding: 12px 30px 12px 12px;
+    font: inherit;
+    letter-spacing: 0.1px;
+    font-size: inherit;
+    font-weight: 400;
+    color: #424242;
+    border: 0.1vmax solid #c0c0c0;
+    border-radius: 2px;
+    background-color: transparent;
+    transition: background-color 1s;
+
+    &:focus {
+      &:not(readOnly) {
+        outline: none;
+        background-color: rgba(135, 206, 250, 0.5);
+      }
+    }
+  }
+
+  &.readOnly {
+    .htmInput {
+      background-color: #e9e9e9;
+      &:focus {
+        &:not(readOnly) {
+          outline: none;
+          color: #424242;
+          background-color: #e9e9e9;
+        }
+      }
+    }
+  }
+
+  .clearBtn {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    right: 0;
+    border: none;
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+    width: 30px;
+    height: 30px;
+    color: gray;
+    transition: color 0.3s;
+    font-size: 24px;
+    font-weight: 100;
+    opacity: 0;
+    transition: opacity 0.3s;
+    border-radius: 2px;
+
+    &.showClnBtn {
+      opacity: 1;
+    }
+
+    &:focus,
+    &:hover {
+      color: red;
+    }
+  }
+}

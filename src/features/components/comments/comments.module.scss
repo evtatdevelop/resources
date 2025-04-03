@@ -1,0 +1,25 @@
+.comments {
+  display: flex;
+  width: 100%;
+
+  .commentArea {
+    font: inherit;
+    font-weight: 400;
+    width: 100%;
+    padding: 8px 12px;
+    min-height: 10vh;
+    resize: none;
+    background-color: transparent;
+    letter-spacing: 0.1px;
+    color: #424242;
+    border: 0.1vmax solid #c0c0c0;
+    border-radius: 2px;
+
+    &:focus {
+      &:not(readOnly) {
+        outline: none;
+        background-color: rgba(135, 206, 250, 0.5);
+      }
+    }
+  }
+}

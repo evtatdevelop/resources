@@ -1,40 +1,110 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect,  } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import styles from './App.module.scss';
-// import { Routes, Route } from 'react-router';
-// import { pathBase } from './config';
-import { langMode, setLangMode, } from "./appSlice";
+import { getResourceList, resourceTypes, } from "./appSlice";
 import { getRemote, remoteUser, remoteLoading, } from "./features/user/userSlice";
+import Input from './features/components/input';
+import Select from './features/components/select';
+import { TestLoader } from './features/components/loader/testLoader';
+import { FileResouce } from './features/fileResouce/fileResouce';
+import { ServerResouce } from './features/serverResouce/serverResouce';
+import { setFileAction, setFileResourceName, setFileValue, setFileReasons, setFilePlace, } from './features/fileResouce/fileResourceSlice';
 
 function App() {
   const dispatch = useDispatch(); 
   const user = useSelector(remoteUser);
-  const lang = useSelector(langMode);
   const remoteLoad = useSelector(remoteLoading);
+  const resourceList = useSelector(resourceTypes);
+
+  const [resource, setResource] = useState(null);
 
   useEffect(() => {
     dispatch(getRemote());
-  }, []);
+    dispatch(getResourceList());
+  }, [dispatch]);
 
-  useEffect(() => {
-    if (user?.lang && !lang) dispatch(setLangMode(user.lang));
-  }, [dispatch, user.lang]);
-
-  
-  console.log(user);
+  const clearFile = () => {
+    dispatch(setFileAction(null));
+    dispatch(setFileResourceName(null));
+    dispatch(setFileValue(null));
+    dispatch(setFileReasons(null));
+    dispatch(setFilePlace(null));
+  }
+  // useEffect(() => {
+  //   if (user?.lang && !lang) dispatch(setLangMode(user.lang));
+  // }, [dispatch, user.lang]);
 
   return (
     <div className={styles.app}>
-      { !remoteLoad
-        // ? <Routes>
-        //     <Route path={`/`} > 
-        //       <Route path={`${pathBase}/`} element={<div>Resources</div>}/>
-        //     </Route>
-        //   </Routes>
-        ? <div></div>
-        : null
-      }
+      <main>
+          <header>
+            <nav>
+              <a href='https://cfl.digtp.com/pages/viewpage.action?pageId=215865375'>Инструкция</a>
+              <a href='https://asuz.digtp.com/mainpage/'>Портал АСУЗ</a>                
+            </nav>
+            <h1>Автоматизированная система управления заявками (асуз)</h1>
+            <h2>Запрос на создание / расширение файловых и серверных ресурсов</h2>
+          </header>
+          { !remoteLoad
+            ? <form>
+                <fieldset>
+                  <legend>Инициатор запроса</legend>
+                  <div>
+                    <label htmlFor="remoteUser">Ф.И.О. инициатора</label>
+                    <Input 
+                      inputHandler = { val => [] }
+                      inputClear = { () => {} }
+                      placeholder = 'Ф.И.О. инициатора'
+                      val = {`${user.last_name} ${user.first_name} ${user.middle_name}`}
+                      readOnly = {true}
+                      id = 'remoteUser'
+                    />
+                  </div>
+                  <p>
+                    Инициатор запроса - это сотрудник, от лица которого будет сформирована
+                    заявка в Центр поддержки пользователей.
+                    Также инициатору будут отправляться уведомления о состоянии запроса,
+                    с ним могут связаться при возникновении каких-либо вопросов для уточнения.
+                  </p>
+                </fieldset>
+
+                <fieldset>
+                  <legend>Тип запроса</legend>
+                  <div>
+                    <label htmlFor="requestType">Тип запроса</label>
+                    <Select
+                      selectHandler = { val => {
+                        setResource(val);
+                        clearFile();
+                      } }
+                      selectClear  = { val => {
+                        setResource(null);
+                        clearFile();
+                      } }
+                      placeholder = 'Выбор типа запроса'
+                      selectList = {resourceList}
+                      val = ''
+                      name='requestType'
+                      id = 'requestType'
+                    />
+                  </div>
+                </fieldset>
+
+                { resource?.type_code === 'FILE'
+                  ? <FileResouce/>
+                  : null
+                }  
+
+                { resource?.type_code === 'SERVER'
+                  ? <ServerResouce/>
+                  : null
+                }  
+
+              </form>
+            : <TestLoader/>
+          }
+
+        </main>
   </div>
   );
 }
