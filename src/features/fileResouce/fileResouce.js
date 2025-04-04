@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import styles from './fileResouce.module.scss';
 import Select from '../components/select';
-import { setFileAction, fileAction, clearFileForm } from './fileResourceSlice';
+import { setFileAction, fileAction, clearFileForm, fileResourceName, fileValue, fileReasons, filePlace, filePeriod, fileResourceManager, fileManagerAccess, } from './fileResourceSlice';
 import { CreateFileResouce } from './CreateFileResouce';
 import { FileUserList } from './fileUserList';
 import { ModifyFileResource } from './ModifyFileResource';
@@ -10,7 +10,15 @@ import { ModifyFileResource } from './ModifyFileResource';
 export const FileResouce = () => {
   const dispatch = useDispatch(); 
   const action = useSelector(fileAction);
-  
+
+  const resourceName = useSelector(fileResourceName);
+  const fileVal = useSelector(fileValue);
+  const fileReason = useSelector(fileReasons);
+  const filePlaceVal = useSelector(filePlace);
+  const filePeriods = useSelector(filePeriod);
+  const fileResManager = useSelector(fileResourceManager);
+  const fileManagAccess = useSelector(fileManagerAccess);
+
   console.log('action', action);
   
   useEffect(() => {
@@ -49,7 +57,7 @@ export const FileResouce = () => {
 
       </fieldset>
       
-      { action === 'CREATE'
+      { action === 'CREATE' && resourceName && fileVal && fileReason && filePlaceVal && filePeriods && fileResManager && fileManagAccess
         ? <fieldset>
             <legend>Список пользователей</legend>
             <div>
