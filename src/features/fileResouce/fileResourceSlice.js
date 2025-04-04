@@ -24,6 +24,21 @@ export const fileResourceSlice = createSlice({
   initialState,
   reducers: {
 
+    clearFileForm: (state) => {
+      state.loading = false;
+      state.fileAction = null;
+      state.fileResourceName = null;
+      state.fileValue = null;
+      state.fileReasons = null;
+      state.filePlaceList = [];
+      state.filePlace = null;
+      state.filePeriod = null;
+      state.fileResourceManager = null;
+      state.fileManagerAccess = null;
+      state.fileNotes = null;
+      state.fileUsers = [];
+    },
+
     setFileAction: (state, action) => {
       state.fileAction = action.payload;
     },
@@ -81,7 +96,7 @@ export const fileResourceSlice = createSlice({
 });
 
 export const { setFileAction, setFileResourceName, setFileValue, setFileReasons, setFilePlace, setFilePeriod, 
-  setFileResourceManager, setFileManagerAccess, setFileNotes, addFileUser, delFileUser, } = fileResourceSlice.actions;
+  setFileResourceManager, setFileManagerAccess, setFileNotes, addFileUser, delFileUser, clearFileForm, } = fileResourceSlice.actions;
 
 export const loading = ( state ) => state.fileResource.loading;
 export const fileAction = ( state ) => state.fileResource.fileAction;

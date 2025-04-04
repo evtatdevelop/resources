@@ -1,4 +1,4 @@
-import React, { useState, useEffect, } from "react";
+import React, { useState, } from "react";
 import styles from './comments.module.scss';
 // import { useSelector, useDispatch } from "react-redux";
 // import dictionary from "../../../../../dictionary.json";
