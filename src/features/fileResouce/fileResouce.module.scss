@@ -1,5 +1,6 @@
 .fileResouce {
   display: flex;
+  flex-direction: column;
 
   fieldset {
     & > div {
@@ -7,6 +8,14 @@
 
       & :first-child {
         margin-top: 0;
+      }
+
+      ul {
+        width: 100%;
+
+        li {
+          display: flex;
+        }
       }
     }
   }

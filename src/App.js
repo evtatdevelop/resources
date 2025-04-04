@@ -8,7 +8,8 @@ import Select from './features/components/select';
 import { TestLoader } from './features/components/loader/testLoader';
 import { FileResouce } from './features/fileResouce/fileResouce';
 import { ServerResouce } from './features/serverResouce/serverResouce';
-import { setFileAction, setFileResourceName, setFileValue, setFileReasons, setFilePlace, } from './features/fileResouce/fileResourceSlice';
+import { setFileAction, setFileResourceName, setFileValue, setFileReasons, setFilePlace, 
+  setFilePeriod, setFileResourceManager, setFileNotes, setFileManagerAccess, } from './features/fileResouce/fileResourceSlice';
 
 function App() {
   const dispatch = useDispatch(); 
@@ -29,6 +30,10 @@ function App() {
     dispatch(setFileValue(null));
     dispatch(setFileReasons(null));
     dispatch(setFilePlace(null));
+    dispatch(setFilePeriod(null));
+    dispatch(setFileResourceManager(null));
+    dispatch(setFileManagerAccess(null))
+    dispatch(setFileNotes(null));
   }
   // useEffect(() => {
   //   if (user?.lang && !lang) dispatch(setLangMode(user.lang));

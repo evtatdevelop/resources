@@ -5,9 +5,11 @@ import Select from '../components/select';
 import Input from '../components/input';
 import { setFileAction, setFileResourceName, fileAction, fileResourceName,
   setFileValue, fileValue, setFileReasons, fileReasons, getFilePlaceList, filePlaceList, 
-  setFilePlace, filePlace,
+  setFilePlace, filePlace, setFilePeriod, filePeriod, setFileResourceManager, fileResourceManager,
+  setFileManagerAccess, fileManagerAccess, setFileNotes, fileNotes, addFileUser, delFileUser, fileUsers,
 } from './fileResourceSlice';
 import { Comments } from '../components/comments/comments';
+import { SelectInput } from '../components/selectInput';
 
 export const FileResouce = () => {
   const dispatch = useDispatch(); 
@@ -17,6 +19,12 @@ export const FileResouce = () => {
   const fileReason = useSelector(fileReasons);
   const filePlaces = useSelector(filePlaceList);
   const filePlaceVal = useSelector(filePlace);
+  const filePeriods = useSelector(filePeriod);
+  const fileResManager = useSelector(fileResourceManager);
+  const fileManagAccess = useSelector(fileManagerAccess);
+  const fileNote = useSelector(fileNotes);
+  const fileUser = useSelector(fileUsers);
+
   const [manualFileVal, setManualFileVal] = useState(false);
 
   // const setFileValue = val => {
@@ -32,6 +40,11 @@ export const FileResouce = () => {
   console.log('fileVal', fileVal);
   console.log('fileReason', fileReason);
   console.log('filePlace', filePlaceVal);
+  console.log('filePeriods', filePeriods);
+  console.log('fileResManager', fileResManager);
+  console.log('fileManagAccess', fileManagAccess);
+  console.log('fileNote', fileNote);
+  console.log('fileUser', fileUser);
   
   useEffect(() => {
     document.getElementById('fileAction')?.focus();
@@ -45,8 +58,28 @@ export const FileResouce = () => {
   },[action, dispatch])
   
   useEffect(() => {
+    if ( fileVal ) document.getElementById('fileReasons')?.focus();
+  },[fileVal])
+  
+  useEffect(() => {
     if ( manualFileVal ) document.getElementById('fileValueManual')?.focus();
   },[manualFileVal])
+  
+  useEffect(() => {
+    if ( filePlaceVal ) document.getElementById('filePeriod')?.focus();
+  },[filePlaceVal])
+  
+  useEffect(() => {
+    if ( filePeriods ) document.getElementById('fileResourceManager')?.focus();
+  },[filePeriods])
+  
+  useEffect(() => {
+    if ( fileResManager ) document.getElementById('managerNoAccess')?.focus();
+  },[fileResManager])
+  
+  useEffect(() => {
+    if ( fileManagAccess ) document.getElementById('fileNotes')?.focus();
+  },[fileManagAccess])
 
   return (
     <section className={styles.fileResouce} >
@@ -63,6 +96,10 @@ export const FileResouce = () => {
               setManualFileVal(false);
               dispatch(setFileReasons(null));
               dispatch(setFilePlace(null));
+              dispatch(setFilePeriod(null));
+              dispatch(setFileResourceManager(null));
+              dispatch(setFileManagerAccess(null));
+              dispatch(setFileNotes(null));
             } }
             placeholder = 'Выбор действия с файловым ресурсом'
             selectList = {[{'id': 1, 'name': 'Создание / регистрация ресурса', 'code': 'CREATE'}, {'id': 2, 'name': 'Расширение имеющегося ресурса', 'code': 'MODIFY'}]}
@@ -164,10 +201,10 @@ export const FileResouce = () => {
               <label htmlFor="filePeriod">Период действия</label>
               <Select
                 selectHandler = { val => {
-                  // dispatch(setFilePlace(val));                 
+                  dispatch(setFilePeriod(val));                 
                 } }
                 selectClear  = { () => {
-                  // dispatch(setFilePlace(null));
+                  dispatch(setFilePeriod(null));
                 } }
                 placeholder = 'Период действия'
                 selectList = {[{id: 1, name: 'Постоянный ресурс', code: 'PERMANENT'}, {id: 2, name: 'Временный ресурс', code: 'TEMPORARY'}, ]}
@@ -176,14 +213,91 @@ export const FileResouce = () => {
                 id = 'filePeriod'
               />
             </div>
-              
+
+            <div>
+              <label htmlFor="fileResourceManager">Ответственный за ресурс{<br/>}(cогласующий доступ к ресурсу)</label>
+              <SelectInput
+                selectHandler = { val => dispatch(setFileResourceManager(val))}
+                placeholder = 'Ответственный за ресурс'
+                val = ''
+                name='fileResourceManager'
+                mode = 'user'
+                id = 'fileResourceManager'
+              />
+            </div>
+
+            <div>
+              <label htmlFor="managerAccess">Требуется выдать доступ к ресурсу для ответственного?</label>
+              <Select
+                selectHandler = { val => dispatch(setFileManagerAccess(val)) }
+                selectClear  = { () => dispatch(setFileManagerAccess(null)) }
+                placeholder = 'доступ к ресурсу для ответственного'
+                selectList = {[{id: 1, name: 'Доступ необходим', code: 'ACCESS'}, {id: 2, name: 'Доступ не требуется', code: 'NOACCESS'}, ]}
+                val = ''
+                name='managerAccess'
+                id = 'managerNoAccess'
+              />
+            </div>
+
+            <div>
+              <label htmlFor="fileNotes">Примечание</label>
+              <Comments 
+                inputHandler = { val => dispatch(setFileNotes(val)) }
+                id = 'fileNotes'
+              />
+            </div>
+
           </> 
 
         : null
       }
 
 
-      </fieldset>    
+      </fieldset>
+      
+      { action === 'CREATE'
+        ? <fieldset>
+            <legend>Список пользователей</legend>
+            <div>
+              <label htmlFor="fileResourceManager">Список пользователей</label>
+              { 
+                <ul>
+                  { fileUser.length
+                    ? fileUser.map(item => <li key={item.id}>{item.first_name}</li>)
+                    : null
+                  }
+                  <li>
+                    <SelectInput
+                      selectHandler = { val => dispatch(addFileUser(val))}
+                      placeholder = 'Пользователь'
+                      val = ''
+                      name='user'
+                      mode = 'user'
+                      id = 'fileUser'
+                    />
+
+                    <Select
+                      selectHandler = { val => {} }
+                      selectClear  = { () => {} }
+                      placeholder = 'Доступ'
+                      selectList = {[{id: 1, name: 'Только чтение', code: 'READ'}, {id: 2, name: 'Чтение / запись', code: 'WRITE'}, ]}
+                      val = ''
+                      name='userAccess'
+                      id = 'userAccess'
+                    />
+
+                    <button type='button'>Add</button>
+                  </li>
+                </ul>
+              }
+
+            </div>
+
+          </fieldset>
+
+        : null  
+      }
+
 
     </section>    
   )

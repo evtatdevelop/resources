@@ -9,6 +9,11 @@ const initialState = {
   fileReasons: null,
   filePlaceList: [],
   filePlace: null,
+  filePeriod: null,
+  fileResourceManager: null,
+  fileManagerAccess: null,
+  fileNotes: null,
+  fileUsers: [],
 
 }
 
@@ -38,6 +43,30 @@ export const fileResourceSlice = createSlice({
     setFilePlace: (state, action) => {
       state.filePlace = action.payload;
     },
+
+    setFilePeriod: (state, action) => {
+      state.filePeriod = action.payload;
+    },
+
+    setFileResourceManager: (state, action) => {
+      state.fileResourceManager = action.payload;
+    },
+
+    setFileManagerAccess: (state, action) => {
+      state.fileManagerAccess = action.payload;
+    },
+
+    setFileNotes: (state, action) => {
+      state.fileNotes = action.payload;
+    },
+
+    addFileUser: (state, action) => {
+      state.fileUsers = [...state.fileUsers, action.payload];
+    },
+
+    delFileUser: (state, action) => {
+      state.fileUsers = state.fileUsers.filter(item => item.id !== action.payload);
+    },
   },
 
   extraReducers: (builder) => {
@@ -51,7 +80,8 @@ export const fileResourceSlice = createSlice({
   }
 });
 
-export const { setFileAction, setFileResourceName, setFileValue, setFileReasons, setFilePlace, } = fileResourceSlice.actions;
+export const { setFileAction, setFileResourceName, setFileValue, setFileReasons, setFilePlace, setFilePeriod, 
+  setFileResourceManager, setFileManagerAccess, setFileNotes, addFileUser, delFileUser, } = fileResourceSlice.actions;
 
 export const loading = ( state ) => state.fileResource.loading;
 export const fileAction = ( state ) => state.fileResource.fileAction;
@@ -60,5 +90,10 @@ export const fileValue = ( state ) => state.fileResource.fileValue;
 export const fileReasons = ( state ) => state.fileResource.fileReasons;
 export const filePlaceList = ( state ) => state.fileResource.filePlaceList;
 export const filePlace = ( state ) => state.fileResource.filePlace;
+export const filePeriod = ( state ) => state.fileResource.filePeriod;
+export const fileResourceManager = ( state ) => state.fileResource.fileResourceManager;
+export const fileManagerAccess = ( state ) => state.fileResource.fileManagerAccess;
+export const fileNotes = ( state ) => state.fileResource.fileNotes;
+export const fileUsers = ( state ) => state.fileResource.fileUsers;
 
 export default fileResourceSlice.reducer;
