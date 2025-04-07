@@ -80,7 +80,7 @@ export const fileResourceSlice = createSlice({
     },
 
     delFileUser: (state, action) => {
-      state.fileUsers = state.fileUsers.filter(item => item.id !== action.payload);
+      state.fileUsers = state.fileUsers.filter(item => item.person.id !== action.payload);
     },
   },
 

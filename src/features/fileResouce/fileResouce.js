@@ -2,7 +2,9 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import styles from './fileResouce.module.scss';
 import Select from '../components/select';
-import { setFileAction, fileAction, clearFileForm, fileResourceName, fileValue, fileReasons, filePlace, filePeriod, fileResourceManager, fileManagerAccess, } from './fileResourceSlice';
+import { setFileAction, fileAction, clearFileForm, fileResourceName, fileValue, fileReasons, 
+  filePlace, filePeriod, fileResourceManager, fileManagerAccess, fileUsers, addFileUser, delFileUser
+} from './fileResourceSlice';
 import { CreateFileResouce } from './CreateFileResouce';
 import { FileUserList } from './fileUserList';
 import { ModifyFileResource } from './ModifyFileResource';
@@ -18,8 +20,10 @@ export const FileResouce = () => {
   const filePeriods = useSelector(filePeriod);
   const fileResManager = useSelector(fileResourceManager);
   const fileManagAccess = useSelector(fileManagerAccess);
+  const fileUserList = useSelector(fileUsers);
 
   console.log('action', action);
+  console.log('fileUserList', fileUserList);
   
   useEffect(() => {
     document.getElementById('fileAction')?.focus();
@@ -61,8 +65,16 @@ export const FileResouce = () => {
         ? <fieldset>
             <legend>Список пользователей</legend>
             <div>
-              <label htmlFor="fileResourceManager">Список пользователей</label>
-              <FileUserList/>
+              <label htmlFor="fileUser">Список пользователей</label>
+              <FileUserList
+                userList = {fileUserList}
+                selectHandler = { val => dispatch(addFileUser(val)) }
+                delHundler = { val => dispatch(delFileUser(val)) }
+                selectListParam = {[{'id': 1, 'name': 'Только чтение', 'code': 'READ'}, {'id': 2, 'name': 'Чтение / запись', 'code': 'WRITE'}]}
+                name = 'fileUser'
+                mode = 'user'
+                id = 'fileUser'
+              />
             </div>
 
           </fieldset>
