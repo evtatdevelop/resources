@@ -5,7 +5,7 @@ import Input from '../../components/input';
 import { setFileResourceName, fileAction, fileResourceName,
   setFileValue, fileValue, setFileReasons, fileReasons, getFilePlaceList, filePlaceList, 
   setFilePlace, filePlace, setFilePeriod, filePeriod, setFileResourceManager, fileResourceManager,
-  setFileManagerAccess, fileManagerAccess, setFileNotes, fileNotes, 
+  setFileManagerAccess, fileManagerAccess, setFileNotes, fileNotes, cleanFileUserList, setFileBoss
 } from '../fileResourceSlice';
 import { Comments } from '../../components/comments/comments';
 import { SelectInput } from '../../components/selectInput';
@@ -21,20 +21,20 @@ export const CreateFileResouce = () => {
   const filePeriods = useSelector(filePeriod);
   const fileResManager = useSelector(fileResourceManager);
   const fileManagAccess = useSelector(fileManagerAccess);
-  const fileNote = useSelector(fileNotes);
+  // const fileNote = useSelector(fileNotes);
   // const fileUser = useSelector(fileUsers);
 
   const [manualFileVal, setManualFileVal] = useState(false);
 
-  console.log('action', action);
-  console.log('resourceName', resourceName);
+  // console.log('action', action);
+  // console.log('resourceName', resourceName);
   console.log('fileVal', fileVal);
-  console.log('fileReason', fileReason);
-  console.log('filePlace', filePlaceVal);
-  console.log('filePeriods', filePeriods);
-  console.log('fileResManager', fileResManager);
-  console.log('fileManagAccess', fileManagAccess);
-  console.log('fileNote', fileNote);
+  // console.log('fileReason', fileReason);
+  // console.log('filePlace', filePlaceVal);
+  // console.log('filePeriods', filePeriods);
+  // console.log('fileResManager', fileResManager);
+  // console.log('fileManagAccess', fileManagAccess);
+  // console.log('fileNote', fileNote);
   // console.log('fileUser', fileUser);
   
   useEffect(() => {
@@ -53,20 +53,24 @@ export const CreateFileResouce = () => {
       dispatch(setFileResourceManager(null));
       dispatch(setFileManagerAccess(null));
       dispatch(setFileNotes(null));
+      dispatch(cleanFileUserList());
+      dispatch(setFileBoss(null));
     }
   },[dispatch, fileVal, manualFileVal])
   
-  useEffect(() => {
-    if ( manualFileVal ) document.getElementById('fileValueManual')?.focus();
-    // else {
-    //   dispatch(setFileReasons(null));
-    //   dispatch(setFilePlace(null));
-    //   dispatch(setFilePeriod(null));
-    //   dispatch(setFileResourceManager(null));
-    //   dispatch(setFileManagerAccess(null));
-    //   dispatch(setFileNotes(null));
-    // }
-  },[dispatch, manualFileVal])
+  // useEffect(() => {
+  //   if ( manualFileVal ) document.getElementById('fileValueManual')?.focus();
+  //   else {
+  //     dispatch(setFileReasons(null));
+  //     dispatch(setFilePlace(null));
+  //     dispatch(setFilePeriod(null));
+  //     dispatch(setFileResourceManager(null));
+  //     dispatch(setFileManagerAccess(null));
+  //     dispatch(setFileNotes(null));
+  //     dispatch(cleanFileUserList());
+  //     dispatch(setFileBoss(null));
+  //   }
+  // },[dispatch, manualFileVal])
   
   useEffect(() => {
     if ( filePlaceVal ) document.getElementById('filePeriod')?.focus();
@@ -75,6 +79,8 @@ export const CreateFileResouce = () => {
       dispatch(setFileResourceManager(null));
       dispatch(setFileManagerAccess(null));
       dispatch(setFileNotes(null));
+      dispatch(cleanFileUserList());
+      dispatch(setFileBoss(null));
     }
   },[dispatch, filePlaceVal])
   
@@ -84,6 +90,8 @@ export const CreateFileResouce = () => {
       dispatch(setFileResourceManager(null));
       dispatch(setFileManagerAccess(null));
       dispatch(setFileNotes(null));
+      dispatch(cleanFileUserList());
+      dispatch(setFileBoss(null));
     }
   },[dispatch, filePeriods])
   
@@ -92,6 +100,8 @@ export const CreateFileResouce = () => {
     else {
       dispatch(setFileManagerAccess(null));
       dispatch(setFileNotes(null));
+      dispatch(cleanFileUserList());
+      dispatch(setFileBoss(null));
     }
   },[dispatch, fileResManager])
   
@@ -99,6 +109,8 @@ export const CreateFileResouce = () => {
     if ( fileManagAccess ) document.getElementById('fileNotes')?.focus();
     else {
       dispatch(setFileNotes(null));
+      dispatch(cleanFileUserList());
+      dispatch(setFileBoss(null));
     }
   },[dispatch, fileManagAccess])
 
@@ -123,7 +135,7 @@ export const CreateFileResouce = () => {
                 ? <Select
                     selectHandler = { val => {
                       dispatch(setFileValue(val.value));
-                      if ( val.value && val.value === '0' ) setManualFileVal(true);
+                      if ( val.value && val.value === 'MANUAL' ) setManualFileVal(true);
                       else setManualFileVal(false);                  
                     } }
                     selectClear  = { () => {
@@ -135,7 +147,7 @@ export const CreateFileResouce = () => {
                       {'id': 1, 'name': '10', 'value': 10},
                       {'id': 2, 'name': '20', 'value': 20},
                       {'id': 3, 'name': '30', 'value': 30},
-                      {'id': 4, 'name': 'Другое значение (указать вручную)', 'value': '0'}]}
+                      {'id': 4, 'name': 'Другое значение (указать вручную)', 'value': 'MANUAL'}]}
                     val = ''
                     name='fileValue'
                     id = 'fileValue'
@@ -164,7 +176,7 @@ export const CreateFileResouce = () => {
               Для дочерних ресурсов не указывается
             </p>
             
-            { fileVal && fileVal !== '0'
+            { fileVal && fileVal !== 'MANUAL'
               ? <>
                   <div>
                     <label htmlFor="fileReasons">Обоснование необходимости выделения / расширения ресурса</label>

@@ -8,13 +8,17 @@ import Select from './features/components/select';
 import { TestLoader } from './features/components/loader/testLoader';
 import { FileResouce } from './features/fileResouce/fileResouce';
 import { ServerResouce } from './features/serverResouce/serverResouce';
-import { clearFileForm, } from './features/fileResouce/fileResourceSlice';
+import { clearFileForm, fileBoss,  } from './features/fileResouce/fileResourceSlice';
 
 function App() {
   const dispatch = useDispatch(); 
   const user = useSelector(remoteUser);
   const remoteLoad = useSelector(remoteLoading);
   const resourceList = useSelector(resourceTypes);
+  const fileBossData = useSelector(fileBoss);
+
+  console.log('fileBossData', fileBossData);
+  
 
   const [resource, setResource] = useState(null);
 
@@ -90,6 +94,14 @@ function App() {
                 ? <ServerResouce/>
                 : null
               }  
+
+              { fileBossData
+                ? <button type='button' className={styles.submitBtn}
+                    onClick={ () => console.log('SUBMIT', ) }
+                  >Отправить запрос на согласование</button>
+                : null
+              }
+              
 
             </form>
           : <TestLoader/>

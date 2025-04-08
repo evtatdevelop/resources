@@ -3,11 +3,12 @@ import { useSelector, useDispatch } from "react-redux";
 import styles from './fileResouce.module.scss';
 import Select from '../components/select';
 import { setFileAction, fileAction, clearFileForm, fileResourceName, fileValue, fileReasons, 
-  filePlace, filePeriod, fileResourceManager, fileManagerAccess, fileUsers, addFileUser, delFileUser
+  filePlace, filePeriod, fileResourceManager, fileManagerAccess, fileUsers, addFileUser, delFileUser, setFileBoss
 } from './fileResourceSlice';
 import { CreateFileResouce } from './CreateFileResouce';
 import { FileUserList } from './fileUserList';
 import { ModifyFileResource } from './ModifyFileResource';
+import { SelectInput } from '../components/selectInput';
 
 export const FileResouce = () => {
   const dispatch = useDispatch(); 
@@ -22,12 +23,16 @@ export const FileResouce = () => {
   const fileManagAccess = useSelector(fileManagerAccess);
   const fileUserList = useSelector(fileUsers);
 
-  console.log('action', action);
-  console.log('fileUserList', fileUserList);
+  // console.log('action', action);
+  // console.log('fileUserList', fileUserList);
   
   useEffect(() => {
     document.getElementById('fileAction')?.focus();
   }, [])
+  
+  useEffect(() => {
+    if ( !fileUserList.length ) dispatch(setFileBoss(null))
+  }, [dispatch, fileUserList.length])
 
   return (
     <section className={styles.fileResouce} >
@@ -79,6 +84,24 @@ export const FileResouce = () => {
 
           </fieldset>
         : null  
+      }
+
+      { resourceName && fileVal && fileReason && filePlaceVal && filePeriods && fileResManager && fileManagAccess && fileUserList.length
+        ? <fieldset>
+            <legend>Руководитель</legend>
+            <div>
+              <label htmlFor="fileBoss">Ф.И.О. руководителя пользователя</label>
+              <SelectInput
+                selectHandler = { val => dispatch(setFileBoss(val))}
+                placeholder = 'Ф.И.О. руководителя пользователя'
+                val = ''
+                name='fileBoss'
+                mode = 'user'
+                id = 'fileBoss'
+              />
+            </div>
+          </fieldset> 
+        : null 
       }
 
     </section>    

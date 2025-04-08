@@ -5,19 +5,19 @@ import { TestLoader } from "./testLoader";
 
 export const FileUserList = props => {
   const {selectHandler, delHundler, name, mode, id, selectListParam, userList, } = props;
-  const [value, setValue] = useState(null);
+  const [value, setValue] = useState('');
   const [show, setShow] = useState(false);
   const [timerId, setTimerId] = useState(null);
   const [selectList, setSelectList] = useState([]);
   const [loading, setloading] = useState(false);
-  const [valueParam, setValueParam] = useState(null);
+  const [valueParam, setValueParam] = useState('');
   const [showParam, setShowParam] = useState(false);
 
   const [user, setUser] = useState({});
   // console.log(user);
   // console.log('value', value);
   // console.log('valueParam', valueParam);
-  console.log('fileUuserListserList', userList);
+  // console.log('fileUuserListserList', userList);
  
   const addUser = () => {
     if ( !user.person || !user.access ) return;

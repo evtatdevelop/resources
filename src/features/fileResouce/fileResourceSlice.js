@@ -14,6 +14,7 @@ const initialState = {
   fileManagerAccess: null,
   fileNotes: null,
   fileUsers: [],
+  fileBoss: null,
 
 }
 
@@ -37,6 +38,7 @@ export const fileResourceSlice = createSlice({
       state.fileManagerAccess = null;
       state.fileNotes = null;
       state.fileUsers = [];
+      state.fileBoss = null;
     },
 
     setFileAction: (state, action) => {
@@ -48,7 +50,12 @@ export const fileResourceSlice = createSlice({
     },
 
     setFileValue: (state, action) => {
-      state.fileValue = action.payload;
+      // console.log(++action.payload);
+      // console.log(Number.isInteger(++action.payload));
+      
+      if ( Number.isInteger(+action.payload) ) 
+        state.fileValue = action.payload;
+      else state.fileValue = null;
     },
 
     setFileReasons: (state, action) => {
@@ -76,11 +83,20 @@ export const fileResourceSlice = createSlice({
     },
 
     addFileUser: (state, action) => {
-      state.fileUsers = [...state.fileUsers, action.payload];
+      if ( !state.fileUsers.length || !state.fileUsers.find(item => item.person.id === action.payload.person.id) )
+        state.fileUsers = [...state.fileUsers, action.payload];
     },
 
     delFileUser: (state, action) => {
       state.fileUsers = state.fileUsers.filter(item => item.person.id !== action.payload);
+    },
+
+    cleanFileUserList: (state, action) => {
+      state.fileUsers = [];
+    },
+
+    setFileBoss: (state, action) => {
+      state.fileBoss = action.payload;
     },
   },
 
@@ -96,7 +112,8 @@ export const fileResourceSlice = createSlice({
 });
 
 export const { setFileAction, setFileResourceName, setFileValue, setFileReasons, setFilePlace, setFilePeriod, 
-  setFileResourceManager, setFileManagerAccess, setFileNotes, addFileUser, delFileUser, clearFileForm, } = fileResourceSlice.actions;
+  setFileResourceManager, setFileManagerAccess, setFileNotes, addFileUser, delFileUser, clearFileForm, 
+  cleanFileUserList, setFileBoss, } = fileResourceSlice.actions;
 
 export const loading = ( state ) => state.fileResource.loading;
 export const fileAction = ( state ) => state.fileResource.fileAction;
@@ -110,5 +127,6 @@ export const fileResourceManager = ( state ) => state.fileResource.fileResourceM
 export const fileManagerAccess = ( state ) => state.fileResource.fileManagerAccess;
 export const fileNotes = ( state ) => state.fileResource.fileNotes;
 export const fileUsers = ( state ) => state.fileResource.fileUsers;
+export const fileBoss = ( state ) => state.fileResource.fileBoss;
 
 export default fileResourceSlice.reducer;

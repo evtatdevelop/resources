@@ -345,25 +345,15 @@
       font-weight: 500;
       letter-spacing: 0.8px;
       border-radius: 3px;
-      background-color: rgba(135, 206, 250, 0.5);
-      color: #424242;
+      background-color: #4c8cc9;
+      color: #ffffff;
+      font-weight: 700;
       border: 0.1vmax solid #c0c0c0;
       transition: border 0.3s;
-      // &:hover,
-      // &:focus,
-      // &:active {
-      //   --border-light: calc(var(--light) * 0.7%);
-      //   --border-alpha: calc((var(--light) - var(--border-threshold)) * 10);
-      //   border: 2px solid
-      //     hsla(
-      //       var(--hue),
-      //       calc(var(--sat) * 1%),
-      //       var(--border-light),
-      //       var(--border-alpha)
-      //     );
-      // }
       &.notReady {
         background-color: #e9e9e9;
+        color: #424242;
+        font-weight: 100;
       }
     }
   }
