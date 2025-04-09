@@ -10,6 +10,7 @@ const initialState = {
   filePlaceList: [],
   filePlace: null,
   filePeriod: null,
+  fileDate: null,
   fileResourceManager: null,
   fileManagerAccess: null,
   fileNotes: null,
@@ -34,6 +35,7 @@ export const fileResourceSlice = createSlice({
       state.filePlaceList = [];
       state.filePlace = null;
       state.filePeriod = null;
+      state.fileDate = null;
       state.fileResourceManager = null;
       state.fileManagerAccess = null;
       state.fileNotes = null;
@@ -70,6 +72,10 @@ export const fileResourceSlice = createSlice({
       state.filePeriod = action.payload;
     },
 
+    setfileDate: (state, action) => {
+      state.fileDate = action.payload;
+    },
+
     setFileResourceManager: (state, action) => {
       state.fileResourceManager = action.payload;
     },
@@ -98,6 +104,7 @@ export const fileResourceSlice = createSlice({
     setFileBoss: (state, action) => {
       state.fileBoss = action.payload;
     },
+
   },
 
   extraReducers: (builder) => {
@@ -113,7 +120,7 @@ export const fileResourceSlice = createSlice({
 
 export const { setFileAction, setFileResourceName, setFileValue, setFileReasons, setFilePlace, setFilePeriod, 
   setFileResourceManager, setFileManagerAccess, setFileNotes, addFileUser, delFileUser, clearFileForm, 
-  cleanFileUserList, setFileBoss, } = fileResourceSlice.actions;
+  cleanFileUserList, setFileBoss, setfileDate, } = fileResourceSlice.actions;
 
 export const loading = ( state ) => state.fileResource.loading;
 export const fileAction = ( state ) => state.fileResource.fileAction;
@@ -128,5 +135,6 @@ export const fileManagerAccess = ( state ) => state.fileResource.fileManagerAcce
 export const fileNotes = ( state ) => state.fileResource.fileNotes;
 export const fileUsers = ( state ) => state.fileResource.fileUsers;
 export const fileBoss = ( state ) => state.fileResource.fileBoss;
+export const fileDate = ( state ) => state.fileResource.fileDate;
 
 export default fileResourceSlice.reducer;

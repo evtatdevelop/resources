@@ -5,10 +5,13 @@ import Input from '../../components/input';
 import { setFileResourceName, fileAction, fileResourceName,
   setFileValue, fileValue, setFileReasons, fileReasons, getFilePlaceList, filePlaceList, 
   setFilePlace, filePlace, setFilePeriod, filePeriod, setFileResourceManager, fileResourceManager,
-  setFileManagerAccess, fileManagerAccess, setFileNotes, fileNotes, cleanFileUserList, setFileBoss
+  setFileManagerAccess, fileManagerAccess, setFileNotes, cleanFileUserList, setFileBoss, fileDate, setfileDate,
+  // fileNotes
 } from '../fileResourceSlice';
 import { Comments } from '../../components/comments/comments';
 import { SelectInput } from '../../components/selectInput';
+import { InputDate } from '../../components/inputDate';
+import { dateToStrDate } from '../../../utils';
 
 export const CreateFileResouce = () => {
   const dispatch = useDispatch(); 
@@ -21,6 +24,7 @@ export const CreateFileResouce = () => {
   const filePeriods = useSelector(filePeriod);
   const fileResManager = useSelector(fileResourceManager);
   const fileManagAccess = useSelector(fileManagerAccess);
+  const fileDateData = useSelector(fileDate);
   // const fileNote = useSelector(fileNotes);
   // const fileUser = useSelector(fileUsers);
 
@@ -28,14 +32,15 @@ export const CreateFileResouce = () => {
 
   // console.log('action', action);
   // console.log('resourceName', resourceName);
-  console.log('fileVal', fileVal);
+  // console.log('fileVal', fileVal);
   // console.log('fileReason', fileReason);
   // console.log('filePlace', filePlaceVal);
-  // console.log('filePeriods', filePeriods);
+  console.log('filePeriods', filePeriods);
   // console.log('fileResManager', fileResManager);
   // console.log('fileManagAccess', fileManagAccess);
   // console.log('fileNote', fileNote);
   // console.log('fileUser', fileUser);
+  console.log('fileDateData', fileDateData);
   
   useEffect(() => {
     if ( action ) {
@@ -50,6 +55,7 @@ export const CreateFileResouce = () => {
       dispatch(setFileReasons(null));
       dispatch(setFilePlace(null));
       dispatch(setFilePeriod(null));
+      dispatch(setfileDate('')); 
       dispatch(setFileResourceManager(null));
       dispatch(setFileManagerAccess(null));
       dispatch(setFileNotes(null));
@@ -76,6 +82,7 @@ export const CreateFileResouce = () => {
     if ( filePlaceVal ) document.getElementById('filePeriod')?.focus();
     else {
       dispatch(setFilePeriod(null));
+      dispatch(setfileDate('')); 
       dispatch(setFileResourceManager(null));
       dispatch(setFileManagerAccess(null));
       dispatch(setFileNotes(null));
@@ -85,8 +92,12 @@ export const CreateFileResouce = () => {
   },[dispatch, filePlaceVal])
   
   useEffect(() => {
-    if ( filePeriods ) document.getElementById('fileResourceManager')?.focus();
-    else {
+    if ( filePeriods ) {
+      if ( filePeriods?.code === "TEMPORARY" ) document.getElementById('expDate')?.focus()
+      else  document.getElementById('fileResourceManager')?.focus();
+      dispatch(setfileDate(''));      
+    } else {
+      dispatch(setfileDate('')); 
       dispatch(setFileResourceManager(null));
       dispatch(setFileManagerAccess(null));
       dispatch(setFileNotes(null));
@@ -94,6 +105,19 @@ export const CreateFileResouce = () => {
       dispatch(setFileBoss(null));
     }
   },[dispatch, filePeriods])
+
+  useEffect(() => {
+    if ( fileDateData ) document.getElementById('fileResourceManager')?.focus();
+    else {
+      if (filePeriods?.code === "TEMPORARY") {
+        dispatch(setFileResourceManager(null));
+        dispatch(setFileManagerAccess(null));
+        dispatch(setFileNotes(null));
+        dispatch(cleanFileUserList());
+        dispatch(setFileBoss(null));        
+      }
+    }
+  },[dispatch, fileDateData, filePeriods?.code])
   
   useEffect(() => {
     if ( fileResManager ) document.getElementById('managerNoAccess')?.focus();
@@ -224,9 +248,23 @@ export const CreateFileResouce = () => {
                                   name='filePeriod'
                                   id = 'filePeriod'
                                 />
+ 
+                                           
                               </div>
 
-                              { filePeriods
+                              { filePeriods?.code === "TEMPORARY"
+                                ?  <div>
+                                    <label htmlFor="expDate">Действует до</label>
+                                    <InputDate
+                                      dateHandler = { val => dispatch(setfileDate(dateToStrDate(val))) }
+                                      lang='ru'
+                                      id = 'expDate'
+                                    />
+                                  </div>
+                                : null  
+                              }                               
+
+                              { ( filePeriods?.code === "PERMANENT" && filePeriods ) || ( filePeriods?.code === "TEMPORARY" && filePeriods && fileDateData )
                                 ? <>
                                     <div>
                                       <label htmlFor="fileResourceManager">Ответственный за ресурс{<br/>}(cогласующий доступ к ресурсу)</label>

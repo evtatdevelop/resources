@@ -9,6 +9,7 @@ import { TestLoader } from './features/components/loader/testLoader';
 import { FileResouce } from './features/fileResouce/fileResouce';
 import { ServerResouce } from './features/serverResouce/serverResouce';
 import { clearFileForm, fileBoss,  } from './features/fileResouce/fileResourceSlice';
+import { deployDate } from './config';
 
 function App() {
   const dispatch = useDispatch(); 
@@ -19,8 +20,14 @@ function App() {
 
   console.log('fileBossData', fileBossData);
   
-
   const [resource, setResource] = useState(null);
+
+  useEffect(() => {
+    if ( localStorage.getItem('deploy') !== deployDate ) {
+      localStorage.setItem('deploy', deployDate);
+      window.location.reload(true);
+    }
+  }, []);
 
   useEffect(() => {
     dispatch(getRemote());

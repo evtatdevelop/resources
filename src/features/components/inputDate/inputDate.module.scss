@@ -1,0 +1,87 @@
+.calendar {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+  // margin-left: .5vmax;
+  // margin-right: .5vmax;
+
+  .date {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+
+    .htmInput {
+      width: 100%;
+      padding: 12px 30px 12px 12px;
+      font: inherit;
+      letter-spacing: 0.1px;
+      font-size: inherit;
+      font-weight: 400;
+      color: #424242;
+      border: 0.1vmax solid #c0c0c0;
+      border-radius: 2px;
+      background-color: transparent;
+      transition: background-color 1s;
+
+      &:focus {
+        &:not(readOnly) {
+          outline: none;
+          background-color: rgba(135, 206, 250, 0.5);
+        }
+      }
+    }
+
+    .clearBtn {
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      right: 0;
+      border: none;
+      padding: 0;
+      margin: 0;
+      background-color: transparent;
+      width: 2vmax;
+      height: 2vmax;
+      color: gray;
+      transition: color 0.3s;
+      font-size: 1.7vmax;
+      font-weight: 100;
+      opacity: 0;
+      transition: opacity 0.3s;
+      border-radius: 0.1vmax;
+
+      &.showClnBtn {
+        opacity: 1;
+      }
+
+      &:focus,
+      &:hover {
+        color: red;
+        color: coral;
+      }
+    }
+  }
+
+  .datePickerWrapper {
+    top: 48px;
+    // top: 2.8vmax;
+    position: absolute;
+    z-index: 99;
+    transition: opacity 0.3s, max-height 0.5s;
+    // overflow: hidden;
+
+    &.hidePicker {
+      // max-height: 0px;
+      opacity: 0;
+      z-index: -1;
+    }
+
+    &.showPicker {
+      // max-height: 300px;
+      opacity: 1;
+    }
+  }
+}

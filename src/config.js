@@ -1,6 +1,6 @@
 let mode = 'local';
 // mode = 'prod';
-
+export const deployDate = '2025-04-09';
 export let apiBase;
 export let pathBase = '';
 switch ( mode ) {              

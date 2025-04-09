@@ -34,6 +34,13 @@ export const strToStrDate = (str, lang) => {
   return lang.toUpperCase() === 'RU' ? `${dd}.${mm}.${date.getFullYear()}` : `${dd}-${mm}-${date.getFullYear()}`;
 }
 
+export const dateToStrDate = (date) => {
+  if ( !date ) return '';
+  const dd = date.getDate() > 9 ? date.getDate() : `0${date.getDate()}`
+  const mm = date.getMonth()+1 > 9 ? date.getMonth()+1 : `0${date.getMonth()+1}`
+  return `${dd}.${mm}.${date.getFullYear()}`;
+}
+
 export const short_name = (str, lang = 'RU') => {
   const arrName= str.split(' ');
   return `${arrName[0]} ${arrName[1][0]}.${arrName[2][0]}.`;

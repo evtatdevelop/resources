@@ -1,0 +1,115 @@
+.picker {
+  display: flex;
+  flex-direction: column;
+  border-radius: 3px;
+  font-size: 14px;
+  font-weight: 400;
+  background-color: #ffffff;
+  border: solid 1px #42424279;
+  color: #424242;
+
+  .navigation {
+    display: flex;
+    justify-content: space-around;
+    padding: 5px;
+    width: 100%;
+
+    & > div {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+
+      button {
+        width: 30px;
+        padding: 0;
+        margin: 0;
+        background-color: transparent;
+        font: inherit;
+        letter-spacing: 1px;
+        color: #0183d4;
+        outline: 1px solid transparent;
+        transition: outline 0.3s;
+
+        &.navBtn {
+          width: 20px;
+        }
+
+        .faCaret {
+          // color:rgb(128, 128, 128);
+          color: #0183d4;
+        }
+
+        &.rest {
+          padding: 0;
+          width: 70px;
+        }
+        &:hover:has(.faCaret) {
+          // outline: 1px solid rgb(128, 128, 128);
+          outline: 0.1vmax solid rgba(245, 222, 179, 0.507);
+        }
+      }
+    }
+  }
+
+  .dayNames {
+    width: 100%;
+    display: grid;
+    place-items: center;
+    gap: 2px;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: auto;
+    padding: 2px;
+    color: #424242;
+
+    .weekDayName {
+      font-weight: 700;
+      // font-size: smaller;
+      &.weekend {
+        color: red;
+      }
+    }
+  }
+
+  .dates {
+    width: 100%;
+    display: grid;
+    place-items: center;
+    gap: 3px;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: auto;
+    padding: 3px;
+
+    .dateCell {
+      width: 35px;
+      height: 35px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      // background-color: rgba(173, 216, 230, 0.486);
+      color: #424242;
+      border-radius: 1px;
+      border: 1px solid rgba(113, 161, 177, 0.521);
+      transition: border 0.3s, background-color 0.3s;
+      cursor: pointer;
+
+      &.today {
+        color: #0183d4;
+        outline: 1px solid #0183d4;
+      }
+      &.weekend {
+        color: red;
+      }
+      &.selected {
+        background-color: lightskyblue;
+        font-weight: 700;
+        font-size: 11px;
+        color: rgb(5, 48, 5);
+      }
+
+      &:hover {
+        border: 0.1vmax solid rgb(128, 128, 128);
+      }
+    }
+  }
+}
