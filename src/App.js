@@ -8,7 +8,9 @@ import Select from './features/components/select';
 import { TestLoader } from './features/components/loader/testLoader';
 import { FileResouce } from './features/fileResouce/fileResouce';
 import { ServerResouce } from './features/serverResouce/serverResouce';
-import { clearFileForm, fileBoss,  } from './features/fileResouce/fileResourceSlice';
+import { clearFileForm, 
+  fileAction, fileResourceName, fileValue, fileReasons, filePlace, filePeriod, fileResourceManager, fileManagerAccess,
+  fileUsers, fileDate, fileNotes,  fileBoss,  } from './features/fileResouce/fileResourceSlice';
 import { deployDate } from './config';
 
 function App() {
@@ -16,9 +18,38 @@ function App() {
   const user = useSelector(remoteUser);
   const remoteLoad = useSelector(remoteLoading);
   const resourceList = useSelector(resourceTypes);
+  
+  const action = useSelector(fileAction);
+  const resourceName = useSelector(fileResourceName);
+  const fileVal = useSelector(fileValue);
+  const fileReason = useSelector(fileReasons);
+  const filePlaceVal = useSelector(filePlace);
+  const filePeriods = useSelector(filePeriod);
+  const fileResManager = useSelector(fileResourceManager);
+  const fileManagAccess = useSelector(fileManagerAccess);
+  const fileUserList = useSelector(fileUsers);
+  const fileDateData = useSelector(fileDate);
+  const fileNote = useSelector(fileNotes);
   const fileBossData = useSelector(fileBoss);
 
-  console.log('fileBossData', fileBossData);
+  const fileSubmit = () => {
+    console.log('action', action);
+    console.log('resourceName', resourceName);
+    console.log('fileVal', fileVal);
+    console.log('fileReason', fileReason);
+    console.log('filePlace', filePlaceVal);
+    console.log('filePeriods', filePeriods);
+    console.log('fileDateData', fileDateData);
+    console.log('fileResManager', fileResManager);
+    console.log('fileManagAccess', fileManagAccess);
+    console.log('fileNote', fileNote);
+    console.log('fileUserList', fileUserList);
+    console.log('fileBossData', fileBossData);
+    dispatch(clearFileForm());
+    setResource(null);
+    document.getElementById('requestType')?.focus();
+  }
+
   
   const [resource, setResource] = useState(null);
 
@@ -102,9 +133,9 @@ function App() {
                 : null
               }  
 
-              { fileBossData
+              { fileBossData //! file resource
                 ? <button type='button' className={styles.submitBtn}
-                    onClick={ () => console.log('SUBMIT', ) }
+                    onClick={ () => fileSubmit() }
                   >Отправить запрос на согласование</button>
                 : null
               }

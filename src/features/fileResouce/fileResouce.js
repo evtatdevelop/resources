@@ -3,7 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 import styles from './fileResouce.module.scss';
 import Select from '../components/select';
 import { setFileAction, fileAction, clearFileForm, fileResourceName, fileValue, fileReasons, 
-  filePlace, filePeriod, fileResourceManager, fileManagerAccess, fileUsers, addFileUser, delFileUser, setFileBoss
+  filePlace, filePeriod, fileResourceManager, fileManagerAccess, fileUsers, addFileUser, 
+  delFileUser, setFileBoss, 
+  // fileDate, fileNotes, fileBoss
 } from './fileResourceSlice';
 import { CreateFileResouce } from './CreateFileResouce';
 import { FileUserList } from './fileUserList';
@@ -13,7 +15,6 @@ import { SelectInput } from '../components/selectInput';
 export const FileResouce = () => {
   const dispatch = useDispatch(); 
   const action = useSelector(fileAction);
-
   const resourceName = useSelector(fileResourceName);
   const fileVal = useSelector(fileValue);
   const fileReason = useSelector(fileReasons);
@@ -22,9 +23,9 @@ export const FileResouce = () => {
   const fileResManager = useSelector(fileResourceManager);
   const fileManagAccess = useSelector(fileManagerAccess);
   const fileUserList = useSelector(fileUsers);
-
-  // console.log('action', action);
-  // console.log('fileUserList', fileUserList);
+  // const fileDateData = useSelector(fileDate);
+  // const fileNote = useSelector(fileNotes);
+  // const fileBossData = useSelector(fileBoss);
   
   useEffect(() => {
     document.getElementById('fileAction')?.focus();

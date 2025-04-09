@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getFilePlace } from "./fileResourceSliceAPI";
+import { getFilePlace, getFileResources } from "./fileResourceSliceAPI";
 
 const initialState = {
   loading: false,
@@ -16,10 +16,11 @@ const initialState = {
   fileNotes: null,
   fileUsers: [],
   fileBoss: null,
-
+  fileResourcesList: [],
 }
 
 export const getFilePlaceList = createAsyncThunk( 'fileResource/getFilePlaceList', async () => await getFilePlace({}) );
+export const getFileResourcesList = createAsyncThunk( 'fileResource/getFileResourcesList', async () => await getFileResources({}) );
 
 export const fileResourceSlice = createSlice({
   name: 'fileResource',
@@ -115,6 +116,12 @@ export const fileResourceSlice = createSlice({
         state.filePlaceList = action.payload;
       })
 
+      .addCase(getFileResourcesList.pending, ( state ) => { state.loading = true })
+      .addCase(getFileResourcesList.fulfilled, ( state, action ) => {
+        state.loading = false;
+        state.fileResourcesList = action.payload;
+      })
+
   }
 });
 
@@ -136,5 +143,7 @@ export const fileNotes = ( state ) => state.fileResource.fileNotes;
 export const fileUsers = ( state ) => state.fileResource.fileUsers;
 export const fileBoss = ( state ) => state.fileResource.fileBoss;
 export const fileDate = ( state ) => state.fileResource.fileDate;
+
+export const fileResourcesList = ( state ) => state.fileResource.fileResourcesList;
 
 export default fileResourceSlice.reducer;

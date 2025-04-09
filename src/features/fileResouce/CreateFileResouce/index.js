@@ -35,12 +35,12 @@ export const CreateFileResouce = () => {
   // console.log('fileVal', fileVal);
   // console.log('fileReason', fileReason);
   // console.log('filePlace', filePlaceVal);
-  console.log('filePeriods', filePeriods);
+  // console.log('filePeriods', filePeriods);
   // console.log('fileResManager', fileResManager);
   // console.log('fileManagAccess', fileManagAccess);
   // console.log('fileNote', fileNote);
   // console.log('fileUser', fileUser);
-  console.log('fileDateData', fileDateData);
+  // console.log('fileDateData', fileDateData);
   
   useEffect(() => {
     if ( action ) {
@@ -64,19 +64,19 @@ export const CreateFileResouce = () => {
     }
   },[dispatch, fileVal, manualFileVal])
   
-  // useEffect(() => {
-  //   if ( manualFileVal ) document.getElementById('fileValueManual')?.focus();
-  //   else {
-  //     dispatch(setFileReasons(null));
-  //     dispatch(setFilePlace(null));
-  //     dispatch(setFilePeriod(null));
-  //     dispatch(setFileResourceManager(null));
-  //     dispatch(setFileManagerAccess(null));
-  //     dispatch(setFileNotes(null));
-  //     dispatch(cleanFileUserList());
-  //     dispatch(setFileBoss(null));
-  //   }
-  // },[dispatch, manualFileVal])
+  useEffect(() => {
+    if ( manualFileVal ) document.getElementById('fileValueManual')?.focus();
+    // else {
+    //   dispatch(setFileReasons(null));
+    //   dispatch(setFilePlace(null));
+    //   dispatch(setFilePeriod(null));
+    //   dispatch(setFileResourceManager(null));
+    //   dispatch(setFileManagerAccess(null));
+    //   dispatch(setFileNotes(null));
+    //   dispatch(cleanFileUserList());
+    //   dispatch(setFileBoss(null));
+    // }
+  },[dispatch, manualFileVal])
   
   useEffect(() => {
     if ( filePlaceVal ) document.getElementById('filePeriod')?.focus();
