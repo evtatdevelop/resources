@@ -65,6 +65,11 @@ function App() {
     dispatch(getResourceList());
   }, [dispatch]);
 
+  useEffect(() => {
+    if ( resourceList.length )
+      document.getElementById('requestType')?.focus();
+  }, [resourceList.length]);
+
   const clearFile = () => dispatch(clearFileForm());
 
   return (
