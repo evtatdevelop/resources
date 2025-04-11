@@ -49,7 +49,8 @@ export const fileResourceSlice = createSlice({
     },
 
     setFileResourceName: (state, action) => {
-      state.fileResourceName = action.payload;
+      if ( action.payload === '' ) state.fileResourceName = null;
+      else state.fileResourceName = action.payload;
     },
 
     setFileValue: (state, action) => {

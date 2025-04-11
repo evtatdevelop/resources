@@ -2,30 +2,18 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import styles from './fileResouce.module.scss';
 import Select from '../components/select';
-import { setFileAction, fileAction, clearFileForm, fileResourceName, fileValue, fileReasons, 
-  filePlace, filePeriod, fileResourceManager, fileManagerAccess, fileUsers, addFileUser, 
-  delFileUser, setFileBoss, 
-  // fileDate, fileNotes, fileBoss
-} from './fileResourceSlice';
+import { setFileAction, fileAction, clearFileForm, fileManagerAccess, fileUsers, addFileUser, delFileUser, setFileBoss, } from './fileResourceSlice';
 import { CreateFileResouce } from './CreateFileResouce';
 import { FileUserList } from './fileUserList';
 import { ModifyFileResource } from './ModifyFileResource';
 import { SelectInput } from '../components/selectInput';
+import { Plug } from '../components/plug';
 
 export const FileResouce = () => {
   const dispatch = useDispatch(); 
   const action = useSelector(fileAction);
-  const resourceName = useSelector(fileResourceName);
-  const fileVal = useSelector(fileValue);
-  const fileReason = useSelector(fileReasons);
-  const filePlaceVal = useSelector(filePlace);
-  const filePeriods = useSelector(filePeriod);
-  const fileResManager = useSelector(fileResourceManager);
   const fileManagAccess = useSelector(fileManagerAccess);
   const fileUserList = useSelector(fileUsers);
-  // const fileDateData = useSelector(fileDate);
-  // const fileNote = useSelector(fileNotes);
-  // const fileBossData = useSelector(fileBoss);
   
   useEffect(() => {
     document.getElementById('fileAction')?.focus();
@@ -46,7 +34,10 @@ export const FileResouce = () => {
               dispatch(clearFileForm());
               dispatch(setFileAction(val.code));
             } }
-            selectClear  = { () => dispatch(clearFileForm())  }
+            selectClear  = { () => {
+              dispatch(clearFileForm());
+              document.getElementById('fileAction')?.focus();
+            }  }
             placeholder = 'Выбор действия с файловым ресурсом'
             selectList = {[{'id': 1, 'name': 'Создание / регистрация ресурса', 'code': 'CREATE'}, {'id': 2, 'name': 'Расширение имеющегося ресурса', 'code': 'MODIFY'}]}
             val = ''
@@ -57,42 +48,40 @@ export const FileResouce = () => {
 
         { action === 'CREATE'
           ? <CreateFileResouce/>
-          : null
+          : action === 'MODIFY'
+            ? <ModifyFileResource/>
+            : <CreateFileResouce/>
         }
-
-        { action === 'MODIFY'
-          ? <ModifyFileResource/>
-          : null
-        }
-
       </fieldset>
-      
-      { action === 'CREATE' && resourceName && fileVal && fileReason && filePlaceVal && filePeriods && fileResManager && fileManagAccess
+
+      { action === 'CREATE'
         ? <fieldset>
             <legend>Список пользователей</legend>
             <div>
               <label htmlFor="fileUser">Список пользователей</label>
-              <FileUserList
-                userList = {fileUserList}
-                selectHandler = { val => dispatch(addFileUser(val)) }
-                delHundler = { val => dispatch(delFileUser(val)) }
-                selectListParam = {[{'id': 1, 'name': 'Только чтение', 'code': 'READ'}, {'id': 2, 'name': 'Чтение / запись', 'code': 'WRITE'}]}
-                name = 'fileUser'
-                mode = 'user'
-                id = 'fileUser'
-              />
+              { action === 'CREATE' && fileManagAccess
+                ? <FileUserList
+                    userList = {fileUserList}
+                    selectHandler = { val => dispatch(addFileUser(val)) }
+                    delHundler = { val => dispatch(delFileUser(val)) }
+                    selectListParam = {[{'id': 1, 'name': 'Только чтение', 'code': 'READ'}, {'id': 2, 'name': 'Чтение / запись', 'code': 'WRITE'}]}
+                    name = 'fileUser'
+                    mode = 'user'
+                    id = 'fileUser'
+                  /> 
+                : <Plug/>
+              }
             </div>
-
           </fieldset>
-        : null  
+        : null
       }
 
-      { resourceName && fileVal && fileReason && filePlaceVal && filePeriods && fileResManager && fileManagAccess && fileUserList.length
-        ? <fieldset>
-            <legend>Руководитель</legend>
-            <div>
-              <label htmlFor="fileBoss">Ф.И.О. руководителя пользователя</label>
-              <SelectInput
+      <fieldset>
+        <legend>Руководитель</legend>
+        <div>
+          <label htmlFor="fileBoss">Ф.И.О. руководителя пользователя</label>
+          { fileUserList.length
+            ? <SelectInput
                 selectHandler = { val => dispatch(setFileBoss(val))}
                 placeholder = 'Ф.И.О. руководителя пользователя'
                 val = ''
@@ -100,10 +89,10 @@ export const FileResouce = () => {
                 mode = 'user'
                 id = 'fileBoss'
               />
-            </div>
-          </fieldset> 
-        : null 
-      }
+            : <Plug/>
+          }
+        </div>
+      </fieldset> 
 
     </section>    
   )
