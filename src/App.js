@@ -10,8 +10,9 @@ import { FileResouce } from './features/fileResouce/fileResouce';
 import { ServerResouce } from './features/serverResouce/serverResouce';
 import { clearFileForm, 
   fileAction, fileResourceName, fileValue, fileReasons, filePlace, filePeriod, fileResourceManager, fileManagerAccess,
-  fileUsers, fileDate, fileNotes,  fileBoss,  } from './features/fileResouce/fileResourceSlice';
+  fileUsers, fileDate, fileNotes,  fileBoss, fileModResource, } from './features/fileResouce/fileResourceSlice';
 import { deployDate } from './config';
+import { setResourceType } from './appSlice';
 
 function App() {
   const dispatch = useDispatch(); 
@@ -31,6 +32,7 @@ function App() {
   const fileDateData = useSelector(fileDate);
   const fileNote = useSelector(fileNotes);
   const fileBossData = useSelector(fileBoss);
+  const fileModRes = useSelector(fileModResource);
 
   const fileSubmit = () => {
     console.log('action', action);
@@ -45,8 +47,10 @@ function App() {
     console.log('fileNote', fileNote);
     console.log('fileUserList', fileUserList);
     console.log('fileBossData', fileBossData);
+    console.log('fileModRes', fileModRes);
     dispatch(clearFileForm());
     setResource(null);
+    dispatch(setResourceType(null));
     document.getElementById('requestType')?.focus();
   }
 
@@ -66,9 +70,9 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
-    if ( resourceList.length )
+    if ( resourceList.length && user )
       document.getElementById('requestType')?.focus();
-  }, [resourceList.length]);
+  }, [resourceList.length, user]);
 
   const clearFile = () => dispatch(clearFileForm());
 
@@ -114,10 +118,13 @@ function App() {
                     selectHandler = { val => {
                       setResource(val);
                       clearFile();
+                      dispatch(setResourceType(val));
                     } }
                     selectClear  = { val => {
                       setResource(null);
                       clearFile();
+                      dispatch(setResourceType(null));
+                      document.getElementById('requestType')?.focus();
                     } }
                     placeholder = 'Выбор типа запроса'
                     selectList = {resourceList}
@@ -130,21 +137,22 @@ function App() {
 
               { resource?.type_code === 'FILE'
                 ? <FileResouce/>
-                : null
+                : resource?.type_code === 'SERVER'
+                ? <ServerResouce/>
+                : <FileResouce/>
               }  
-
+{/* 
               { resource?.type_code === 'SERVER'
                 ? <ServerResouce/>
                 : null
-              }  
+              }   */}
 
-              { fileBossData //! file resource
+              { resource?.type_code === 'FILE' && fileBossData //! file resource
                 ? <button type='button' className={styles.submitBtn}
                     onClick={ () => fileSubmit() }
                   >Отправить запрос на согласование</button>
                 : null
               }
-              
 
             </form>
           : <TestLoader/>

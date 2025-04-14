@@ -27,6 +27,7 @@
   .list {
     // outline: 1px solid red;
     width: 100%;
+    min-height: 50px;
     max-height: 250px;
     overflow-y: scroll;
 
@@ -46,6 +47,7 @@
       // border-radius: 2px;
       // background-color: #e9e9e9;
       // transition: background-color 1s;
+      cursor: pointer;
 
       div {
         display: flex;
@@ -61,4 +63,69 @@
       }
     }
   }
+
+  .modResource {
+    & > div {
+      display: flex;
+      align-items: center;
+
+      div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 12px 30px 12px 12px;
+        letter-spacing: 0.1px;
+        font-size: inherit;
+        font-weight: 400;
+        color: #424242;
+        border: 0.1vmax solid #c0c0c0;
+        border-radius: 2px;
+        background-color: #e9e9e9;
+      }
+
+      label {
+        width: 380px;
+        flex-shrink: 0;
+        font-weight: 700;
+      }
+
+      &:first-child {
+        margin-bottom: 10px;
+        div {
+          background-color: transparent;
+          position: relative;
+          button {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            right: 0;
+            border: none;
+            padding: 0;
+            margin: 0;
+            background-color: transparent;
+            width: 30px;
+            height: 30px;
+            color: gray;
+            transition: color 0.3s;
+            font-size: 24px;
+            font-weight: 100;
+            transition: opacity 0.3s;
+            border-radius: 2px;
+
+            &.showClnBtn {
+              opacity: 1;
+            }
+
+            &:focus,
+            &:hover {
+              color: red;
+            }
+          }
+        }
+      }
+    }
+  }
+  cursor: pointer;
 }

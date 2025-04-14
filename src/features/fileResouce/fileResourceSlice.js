@@ -17,6 +17,7 @@ const initialState = {
   fileUsers: [],
   fileBoss: null,
   fileResourcesList: [],
+  fileModResource: null,
 }
 
 export const getFilePlaceList = createAsyncThunk( 'fileResource/getFilePlaceList', async () => await getFilePlace({}) );
@@ -42,6 +43,12 @@ export const fileResourceSlice = createSlice({
       state.fileNotes = null;
       state.fileUsers = [];
       state.fileBoss = null;
+      state.fileModResource = null;
+
+    },
+
+    setLoading: (state, action) => {
+      state.loading = action.payload;
     },
 
     setFileAction: (state, action) => {
@@ -107,6 +114,10 @@ export const fileResourceSlice = createSlice({
       state.fileBoss = action.payload;
     },
 
+    setFileModResource: (state, action) => {
+      state.fileModResource = action.payload;
+    },
+
   },
 
   extraReducers: (builder) => {
@@ -120,7 +131,7 @@ export const fileResourceSlice = createSlice({
       .addCase(getFileResourcesList.pending, ( state ) => { state.loading = true })
       .addCase(getFileResourcesList.fulfilled, ( state, action ) => {
         state.loading = false;
-        state.fileResourcesList = action.payload;
+        state.fileResourcesList = [...action.payload];
       })
 
   }
@@ -128,7 +139,7 @@ export const fileResourceSlice = createSlice({
 
 export const { setFileAction, setFileResourceName, setFileValue, setFileReasons, setFilePlace, setFilePeriod, 
   setFileResourceManager, setFileManagerAccess, setFileNotes, addFileUser, delFileUser, clearFileForm, 
-  cleanFileUserList, setFileBoss, setfileDate, } = fileResourceSlice.actions;
+  cleanFileUserList, setFileBoss, setfileDate, setLoading, setFileModResource, } = fileResourceSlice.actions;
 
 export const loading = ( state ) => state.fileResource.loading;
 export const fileAction = ( state ) => state.fileResource.fileAction;
@@ -146,5 +157,6 @@ export const fileBoss = ( state ) => state.fileResource.fileBoss;
 export const fileDate = ( state ) => state.fileResource.fileDate;
 
 export const fileResourcesList = ( state ) => state.fileResource.fileResourcesList;
+export const fileModResource = ( state ) => state.fileResource.fileModResource;
 
 export default fileResourceSlice.reducer;

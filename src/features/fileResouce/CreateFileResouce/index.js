@@ -61,7 +61,6 @@ export const CreateFileResouce = () => {
       dispatch(setFileResourceManager(null));
       dispatch(setFileManagerAccess(null));
       dispatch(setFileNotes(null));
-      dispatch(setFileNotes(null));
       dispatch(cleanFileUserList());
       dispatch(setFileBoss(null));
     }
@@ -79,7 +78,6 @@ export const CreateFileResouce = () => {
       dispatch(setFileResourceManager(null));
       dispatch(setFileManagerAccess(null));
       dispatch(setFileNotes(null));
-      dispatch(setFileNotes(null));
       dispatch(cleanFileUserList());
       dispatch(setFileBoss(null));
     }
@@ -94,7 +92,6 @@ export const CreateFileResouce = () => {
       dispatch(setfileDate(null));
       dispatch(setFileResourceManager(null));
       dispatch(setFileManagerAccess(null));
-      dispatch(setFileNotes(null));
       dispatch(setFileNotes(null));
       dispatch(cleanFileUserList());
       dispatch(setFileBoss(null));
@@ -114,7 +111,6 @@ export const CreateFileResouce = () => {
       dispatch(setFileResourceManager(null));
       dispatch(setFileManagerAccess(null));
       dispatch(setFileNotes(null));
-      dispatch(setFileNotes(null));
       dispatch(cleanFileUserList());
       dispatch(setFileBoss(null));
     }
@@ -127,7 +123,6 @@ export const CreateFileResouce = () => {
       dispatch(setfileDate(null));
       dispatch(setFileResourceManager(null));
       dispatch(setFileManagerAccess(null));
-      dispatch(setFileNotes(null));
       dispatch(setFileNotes(null));
       dispatch(cleanFileUserList());
       dispatch(setFileBoss(null));
@@ -144,7 +139,6 @@ export const CreateFileResouce = () => {
       dispatch(setFileResourceManager(null));
       dispatch(setFileManagerAccess(null));
       dispatch(setFileNotes(null));
-      dispatch(setFileNotes(null));
       dispatch(cleanFileUserList());
       dispatch(setFileBoss(null));
     }
@@ -157,7 +151,6 @@ export const CreateFileResouce = () => {
         dispatch(setFileResourceManager(null));
         dispatch(setFileManagerAccess(null));
         dispatch(setFileNotes(null));
-        dispatch(setFileNotes(null));
         dispatch(cleanFileUserList());
         dispatch(setFileBoss(null));       
       }
@@ -169,7 +162,6 @@ export const CreateFileResouce = () => {
     else {
       dispatch(setFileManagerAccess(null));
       dispatch(setFileNotes(null));
-      dispatch(setFileNotes(null));
       dispatch(cleanFileUserList());
       dispatch(setFileBoss(null));  
     }
@@ -178,7 +170,6 @@ export const CreateFileResouce = () => {
   useEffect(() => {
     if ( fileManagAccess ) document.getElementById('fileNotes')?.focus();
     else {
-      dispatch(setFileNotes(null));
       dispatch(setFileNotes(null));
       dispatch(cleanFileUserList());
       dispatch(setFileBoss(null));  
@@ -253,7 +244,7 @@ export const CreateFileResouce = () => {
       }
 
       <div>
-        <label htmlFor="fileReasons">Обоснование необходимости выделения / расширения ресурса</label>
+        <label htmlFor="fileReasons">Обоснование необходимости выделения</label>
         { resourceName && ( fileVal && fileVal !== 'MANUAL' )
           ? <Comments 
               inputHandler = { val => {
