@@ -37,7 +37,23 @@ export const ModifyFileResource = () => {
     if ( manualFileVal ) document.getElementById('fileValueManual')?.focus();
   },[manualFileVal])
 
-  
+  useEffect(() => {
+    if ( fileVal ) document.getElementById('fileReasons')?.focus();
+    else {
+      dispatch(setFileReasons(null));
+      dispatch(setFileNotes(null));
+      dispatch(setFileBoss(null));  
+    }
+  }, [dispatch, fileVal])
+
+  useEffect(() => {
+    if ( fileReason ) document.getElementById('fileNotes')?.focus();
+    else {
+      dispatch(setFileNotes(null));
+      dispatch(setFileBoss(null));  
+    }
+  }, [dispatch, fileReason])
+
   return (
     <>
       <FileResourceList/>
@@ -116,15 +132,10 @@ export const ModifyFileResource = () => {
                   />
                 : <Plug/>
               }
-            </div>           
-          
+            </div>
           </>
         : null
-
       }
-
-
-
     </>    
   )
 }

@@ -20,8 +20,7 @@ export const FileUserList = props => {
   // console.log('fileUuserListserList', userList);
  
   const addUser = () => {
-    if ( !user.person || !user.access ) return;
-    selectHandler(user);
+    if ( user.person || user.access ) selectHandler(user);
     setShow(false);
     setShowParam(false);
     setloading(false);
@@ -29,15 +28,16 @@ export const FileUserList = props => {
     setSelectList([]);
     setValueParam('');
     setUser({});
+    setTimeout(() => document.getElementById(id)?.focus(), 1000);
   }
   
   const onSearchUsers  = (string) => {
     if ( string ) {
       if ( mode === 'user' ) searchUsers({'string': string, }).then(value => {
-          setSelectList(value)
-          setShow(true)
-          setloading(false)
-        });
+        setSelectList(value)
+        setShow(true)
+        setloading(false)
+      });
     }
   }
 
