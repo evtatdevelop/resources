@@ -7,7 +7,7 @@ import { setFileResourceName, fileAction, fileResourceName,
   setFileValue, fileValue, setFileReasons, fileReasons, getFilePlaceList, filePlaceList, 
   setFilePlace, filePlace, setFilePeriod, filePeriod, setFileResourceManager, fileResourceManager,
   setFileManagerAccess, fileManagerAccess, setFileNotes, cleanFileUserList, setFileBoss, fileDate, setfileDate,
-  fileNotes, fileUsers, fileBoss
+  // fileNotes, fileUsers, fileBoss
 } from '../fileResourceSlice';
 import { Comments } from '../../components/comments/comments';
 import { SelectInput } from '../../components/selectInput';
@@ -27,24 +27,24 @@ export const CreateFileResouce = () => {
   const fileResManager = useSelector(fileResourceManager);
   const fileManagAccess = useSelector(fileManagerAccess);
   const fileDateData = useSelector(fileDate);
-  const fileNote = useSelector(fileNotes);
-  const fileUser = useSelector(fileUsers);
-  const fileBossData = useSelector(fileBoss);
+  // const fileNote = useSelector(fileNotes);
+  // const fileUser = useSelector(fileUsers);
+  // const fileBossData = useSelector(fileBoss);
 
   const [manualFileVal, setManualFileVal] = useState(false);
 
-  console.log('action', action);
-  console.log('resourceName', resourceName);
-  console.log('fileVal', fileVal);
-  console.log('fileReason', fileReason);
-  console.log('filePlace', filePlaceVal);
-  console.log('filePeriods', filePeriods);
-  console.log('fileDateData', fileDateData);
-  console.log('fileResManager', fileResManager);
-  console.log('fileManagAccess', fileManagAccess);
-  console.log('fileNote', fileNote);
-  console.log('fileUser', fileUser);
-  console.log('fileBossData', fileBossData);
+  // console.log('action', action);
+  // console.log('resourceName', resourceName);
+  // console.log('fileVal', fileVal);
+  // console.log('fileReason', fileReason);
+  // console.log('filePlace', filePlaceVal);
+  // console.log('filePeriods', filePeriods);
+  // console.log('fileDateData', fileDateData);
+  // console.log('fileResManager', fileResManager);
+  // console.log('fileManagAccess', fileManagAccess);
+  // console.log('fileNote', fileNote);
+  // console.log('fileUser', fileUser);
+  // console.log('fileBossData', fileBossData);
    
   useEffect(() => {
     if ( action ) {
@@ -353,198 +353,5 @@ export const CreateFileResouce = () => {
       </div> 
     </>
   )
-
-
-  // return (
-  //   <>
-  //     <div>
-  //       <label htmlFor="">Желаемое имя ресурса</label>
-  //       <Input 
-  //         inputHandler = { val => dispatch(setFileResourceName(val)) }
-  //         inputClear = { () => dispatch(setFileResourceName(null)) }
-  //         placeholder = 'Желаемое имя ресурса'
-  //         val = ''
-  //         readOnly = {false}
-  //         id = 'fileResourceName'
-  //       />
-  //     </div>
-  //     { resourceName
-  //       ? <>
-  //           <div>
-  //             <label htmlFor="fileValue">Требуемый объем (Гб)</label>
-  //             { !manualFileVal
-  //               ? <Select
-  //                   selectHandler = { val => {
-  //                     dispatch(setFileValue(val.value));
-  //                     if ( val.value && val.value === 'MANUAL' ) setManualFileVal(true);
-  //                     else setManualFileVal(false);                  
-  //                   } }
-  //                   selectClear  = { () => {
-  //                     dispatch(setFileValue(null));
-  //                     setManualFileVal(false);
-  //                   } }
-  //                   placeholder = 'Требуемый объем (Гб)'
-  //                   selectList = {[
-  //                     {'id': 1, 'name': '10', 'value': 10},
-  //                     {'id': 2, 'name': '20', 'value': 20},
-  //                     {'id': 3, 'name': '30', 'value': 30},
-  //                     {'id': 4, 'name': 'Другое значение (указать вручную)', 'value': 'MANUAL'}]}
-  //                   val = ''
-  //                   name='fileValue'
-  //                   id = 'fileValue'
-  //                 />
-  //               : null
-  //             }
-  //             { manualFileVal
-  //               ? <Input 
-  //                   inputHandler = { val => {
-  //                     dispatch(setFileValue(val));
-  //                     if ( !val ) setManualFileVal(false);
-  //                   } }
-  //                   inputClear = { () => {
-  //                     dispatch(setFileValue(null));
-  //                     setManualFileVal(false); 
-  //                   } }
-  //                   placeholder = 'Требуемый объем (Гб)'
-  //                   val = ''
-  //                   readOnly = {false}
-  //                   id = 'fileValueManual'
-  //                 />
-  //               : null
-  //             }
-  //           </div>
-  //           <p>
-  //             Для дочерних ресурсов не указывается
-  //           </p>
-            
-  //           { fileVal && fileVal !== 'MANUAL'
-  //             ? <>
-  //                 <div>
-  //                   <label htmlFor="fileReasons">Обоснование необходимости выделения / расширения ресурса</label>
-  //                   <Comments 
-  //                     inputHandler = { val => {
-  //                       dispatch(setFileReasons(val));
-  //                     } }
-  //                     id = 'fileReasons'
-  //                   />
-  //                 </div>
-
-  //                 { fileReason
-  //                   ? <>
-  //                       <div>
-  //                         <label htmlFor="filePlace">Площадка физического местоположения ресурса</label>
-  //                         <Select
-  //                           selectHandler = { val => {
-  //                             dispatch(setFilePlace(val));                 
-  //                           } }
-  //                           selectClear  = { () => {
-  //                             dispatch(setFilePlace(null));
-  //                           } }
-  //                           placeholder = 'Площадка физического местоположения ресурса'
-  //                           selectList = {filePlaces}
-  //                           val = ''
-  //                           name='filePlace'
-  //                           id = 'filePlace'
-  //                         />
-  //                       </div>
-
-  //                       { filePlaceVal
-  //                         ? <>
-  //                             <div>
-  //                               <label htmlFor="filePeriod">Период действия</label>
-  //                               <Select
-  //                                 selectHandler = { val => {
-  //                                   dispatch(setFilePeriod(val));                 
-  //                                 } }
-  //                                 selectClear  = { () => {
-  //                                   dispatch(setFilePeriod(null));
-  //                                 } }
-  //                                 placeholder = 'Период действия'
-  //                                 selectList = {[{id: 1, name: 'Постоянный ресурс', code: 'PERMANENT'}, {id: 2, name: 'Временный ресурс', code: 'TEMPORARY'}, ]}
-  //                                 val = ''
-  //                                 name='filePeriod'
-  //                                 id = 'filePeriod'
-  //                               />
- 
-                                           
-  //                             </div>
-
-  //                             { filePeriods?.code === "TEMPORARY"
-  //                               ?  <div>
-  //                                   <label htmlFor="expDate">Действует до</label>
-  //                                   <InputDate
-  //                                     dateHandler = { val => dispatch(setfileDate(dateToStrDate(val))) }
-  //                                     lang='ru'
-  //                                     id = 'expDate'
-  //                                   />
-  //                                 </div>
-  //                               : null  
-  //                             }                               
-
-  //                             { ( filePeriods?.code === "PERMANENT" && filePeriods ) || ( filePeriods?.code === "TEMPORARY" && filePeriods && fileDateData )
-  //                               ? <>
-  //                                   <div>
-  //                                     <label htmlFor="fileResourceManager">Ответственный за ресурс{<br/>}(cогласующий доступ к ресурсу)</label>
-  //                                     <SelectInput
-  //                                       selectHandler = { val => dispatch(setFileResourceManager(val))}
-  //                                       placeholder = 'Ответственный за ресурс'
-  //                                       val = ''
-  //                                       name='fileResourceManager'
-  //                                       mode = 'user'
-  //                                       id = 'fileResourceManager'
-  //                                     />
-  //                                   </div>
-
-  //                                   { fileResManager
-  //                                     ? <>
-  //                                         <div>
-  //                                           <label htmlFor="managerAccess">Требуется выдать доступ к ресурсу для ответственного?</label>
-  //                                           <Select
-  //                                             selectHandler = { val => dispatch(setFileManagerAccess(val)) }
-  //                                             selectClear  = { () => dispatch(setFileManagerAccess(null)) }
-  //                                             placeholder = 'доступ к ресурсу для ответственного'
-  //                                             selectList = {[{id: 1, name: 'Доступ необходим', code: 'ACCESS'}, {id: 2, name: 'Доступ не требуется', code: 'NOACCESS'}, ]}
-  //                                             val = ''
-  //                                             name='managerAccess'
-  //                                             id = 'managerNoAccess'
-  //                                           />
-  //                                         </div>
-
-  //                                         <div>
-  //                                           <label htmlFor="fileNotes">Примечание</label>
-  //                                           <Comments 
-  //                                             inputHandler = { val => dispatch(setFileNotes(val)) }
-  //                                             id = 'fileNotes'
-  //                                           />
-  //                                         </div>                                         
-  //                                       </>
-  //                                     : null  
-  //                                   }        
-  //                                 </>
-  //                               : null
-  //                             } 
-
-               
-  //                           </>
-  //                         : null
-
-  //                       }
-
-                     
-  //                     </>
-  //                   : null
-  //                 }
-
-
-  //               </>
-  //             : null
-  //           }
-
-  //         </>
-  //       : null
-  //     }
-
-  //   </>
-  // )
 }
 

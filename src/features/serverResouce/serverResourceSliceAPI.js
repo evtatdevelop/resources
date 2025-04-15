@@ -3,4 +3,4 @@ import { apiBase, } from "../../config";
 
 const service = new Service();
 
-export const getResourceTypes = ( data ) => service.getResource(`${apiBase}/?q=fsrResourceTypes`, data);
+export const getServerPlace = ( data ) => service.getResource(`${apiBase}/?q=fsrServerPlace`, data);

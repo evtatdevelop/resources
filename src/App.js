@@ -10,9 +10,11 @@ import { FileResouce } from './features/fileResouce/fileResouce';
 import { ServerResouce } from './features/serverResouce/serverResouce';
 import { clearFileForm, 
   fileAction, fileResourceName, fileValue, fileReasons, filePlace, filePeriod, fileResourceManager, fileManagerAccess,
-  fileUsers, fileDate, fileNotes,  fileBoss, fileModResource, } from './features/fileResouce/fileResourceSlice';
+  fileUsers, fileDate, fileNotes,  fileBoss, fileModResource,
+  setFileAction, } from './features/fileResouce/fileResourceSlice';
 import { deployDate } from './config';
 import { setResourceType } from './appSlice';
+import { setServerAction } from './features/serverResouce/serverResourceSlice';
 
 function App() {
   const dispatch = useDispatch(); 
@@ -54,7 +56,6 @@ function App() {
     document.getElementById('requestType')?.focus();
   }
 
-  
   const [resource, setResource] = useState(null);
 
   useEffect(() => {
@@ -119,11 +120,15 @@ function App() {
                       setResource(val);
                       clearFile();
                       dispatch(setResourceType(val));
+                      dispatch(setFileAction(null));
+                      dispatch(setServerAction(null));
                     } }
                     selectClear  = { val => {
                       setResource(null);
                       clearFile();
                       dispatch(setResourceType(null));
+                      dispatch(setFileAction(null));
+                      dispatch(setServerAction(null));
                       document.getElementById('requestType')?.focus();
                     } }
                     placeholder = 'Выбор типа запроса'

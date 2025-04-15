@@ -98,7 +98,12 @@ export const FileUserList = props => {
       <ul>
         { userList
           ? userList.map(item => <li key={item.person.id}>
-              <div>{`${item.person.last_name} ${item.person.first_name} ${item.person.middle_name} (${item.access.name})`}</div>
+              <div>
+                { item.person.middle_name 
+                  ? `${item.person.last_name} ${item.person.first_name} ${item.person.middle_name ?? ''} (${item.access.name})`
+                  : `${item.person.first_name} ${item.person.last_name } (${item.access.name})`
+                }
+              </div>
               <button type="button"
                 onClick={() => delHundler(item.person.id)}
               >&times;</button>

@@ -1,40 +1,67 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getResourceTypes } from "./serverResourceSliceAPI";
+import { getServerPlace } from "./serverResourceSliceAPI";
 
 const initialState = {
   loading: false,
+  serverAction: null,
+  serverReasons: null,
+  serverPlace: null,
+  serverPlacesList: [],
+  serverType: null,
+
 }
 
-export const getResourceList = createAsyncThunk( 'serverResource/getResourceList', async () => await getResourceTypes({}) );
+export const getServerPlaceList = createAsyncThunk( 'serverResource/getServerPlaceList', async () => await getServerPlace({}) );
 
 export const serverResourceSlice = createSlice({
   name: 'serverResource',
   initialState,
   reducers: {
 
-    setTheme: (state, action) => {
-      state.darkTheme = action.payload;
-      localStorage.setItem(`darkTheme`, JSON.stringify(action.payload));
+    clearServerForm: (state) => {
+      state.loading = false;
+      state.serverAction = null;
+      state.serverReasons = null;
+      state.serverPlace = null;
+      state.serverType = null;
+      
     },
 
-    setLangMode: (state, action) => {
-      state.langMode = action.payload;
+    setServerAction: (state, action) => {
+      state.serverAction = action.payload;
+    },
+
+    setServerReasons: (state, action) => {
+      state.serverReasons = action.payload;
+    },
+
+    setServerPlace: (state, action) => {
+      state.serverPlace = action.payload;
+    },
+
+    setServerType: (state, action) => {
+      state.serverType = action.payload;
     },
   },
 
   extraReducers: (builder) => {
     builder
-      .addCase(getResourceList.pending, ( state ) => { state.loading = true })
-      .addCase(getResourceList.fulfilled, ( state, action ) => {
+      .addCase(getServerPlaceList.pending, ( state ) => { state.loading = true })
+      .addCase(getServerPlaceList.fulfilled, ( state, action ) => {
         state.loading = false;
-        state.resourceTypes = action.payload;
+        state.serverPlacesList = action.payload;
       })
 
   }
 });
 
-export const { setTheme, setLangMode } = serverResourceSlice.actions;
+export const { clearServerForm, setServerAction, setServerReasons, setServerPlace, setServerType } = serverResourceSlice.actions;
 
 export const loading = ( state ) => state.serverResource.loading;
+export const serverAction = ( state ) => state.serverResource.serverAction;
+export const serverReasons = ( state ) => state.serverResource.serverReasons;
+export const serverPlace = ( state ) => state.serverResource.serverPlace;
+export const serverPlacesList = ( state ) => state.serverResource.serverPlacesList;
+export const serverType = ( state ) => state.serverResource.serverType;
 
 export default serverResourceSlice.reducer;

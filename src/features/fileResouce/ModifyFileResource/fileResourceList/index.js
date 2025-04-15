@@ -28,7 +28,7 @@ export const FileResourceList = () => {
   const clear = () => setFiltred(fileResources);
 
   const setFileResource = val => {
-    console.log(val);
+    // console.log(val);
     dispatch(setFileModResource(val));
   }
 
