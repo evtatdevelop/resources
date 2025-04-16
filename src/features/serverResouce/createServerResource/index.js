@@ -5,12 +5,14 @@ import Input from '../../components/input';
 import { serverAction, setServerReasons, serverReasons, setServerPlace, serverPlacesList, getServerPlaceList, serverPlace,
   loading, setServerType, serverType, getServerGroupList, serverGroupList, setServerGroup, serverGroup,
   getOperSystemsList, serverOperSystemList, setServerOperSystem, serverOperSystem, setServerResourceManager, serverResourceManager,
-  setServerResourceName, serverResourceName, setServCores, servCores, 
+  setServerResourceName, serverResourceName, setServCores, servCores, setServMem, servMem,
+  setServStorage, servStorage, setSorageComment, sorageComment, setServerNets, serverNets, setNetsComment, netsComment,
+  setServerPeriod, serverPeriod, setServerDate, serverDate, setServerComment, serverComment, 
  } from '../serverResourceSlice';
 import { Comments } from '../../components/comments/comments';
 import { SelectInput } from '../../components/selectInput';
-// import { InputDate } from '../../components/inputDate';
-// import { dateToStrDate } from '../../../utils';
+import { InputDate } from '../../components/inputDate';
+import { dateToStrDate } from '../../../utils';
 import { Plug } from '../../components/plug';
 import { TestLoader } from '../../components/selectInput/testLoader';
 
@@ -29,6 +31,14 @@ export const CreateServerResouce = () => {
   const serverResManager = useSelector(serverResourceManager);
   const serverName = useSelector(serverResourceName);
   const servCoresVal = useSelector(servCores);
+  const servMemVal = useSelector(servMem);
+  const servStorageVal = useSelector(servStorage);
+  const sorageCommentVal = useSelector(sorageComment);
+  const serverNetsVal = useSelector(serverNets);
+  const netsCommentVal = useSelector(netsComment);
+  const serverPeriodVal = useSelector(serverPeriod);
+  const serverDateVal = useSelector(serverDate);
+  const serverCommentVal = useSelector(serverComment);
 
 const [manualServCores, setManualServCores] = useState(false);
 const [manualServMem, setManualServMem] = useState(false);
@@ -43,6 +53,14 @@ const [manualServNets, setManualServNets] = useState(false);
   console.log('serverResManager ', serverResManager);
   console.log('serverName ', serverName);
   console.log('servCoresVal ', servCoresVal);
+  console.log('servMemVal ', servMemVal);
+  console.log('servStorageVal ', servStorageVal);
+  console.log('sorageCommentVal ', sorageCommentVal);
+  console.log('serverNetsVal ', serverNetsVal);
+  console.log('netsCommentVal ', netsCommentVal);
+  console.log('serverPeriodVal ', serverPeriodVal);
+  console.log('serverDateVal ', serverDateVal);
+  console.log('serverCommentVal ', serverCommentVal);
 
   useEffect(() => {
     if ( action ) {
@@ -60,6 +78,17 @@ const [manualServNets, setManualServNets] = useState(false);
       dispatch(setServerResourceName(null));
       setManualServCores(false);
       dispatch(setServCores(null));
+      setManualServMem(false);
+      dispatch(setServMem(null));
+      setManualServStorage(false);
+      dispatch(setServStorage(null));
+      dispatch(setSorageComment(null));
+      setManualServNets(false);
+      dispatch(setServerNets(null));
+      dispatch(setNetsComment(null));
+      dispatch(setServerPeriod(null));
+      dispatch(setServerDate(null));
+      dispatch(setServerComment(null));
     }
   },[action, dispatch, serverPlaces, serverGroups, serverOperSystems])
 
@@ -75,6 +104,17 @@ const [manualServNets, setManualServNets] = useState(false);
       dispatch(setServerResourceName(null));
       setManualServCores(false);
       dispatch(setServCores(null));
+      setManualServMem(false);
+      dispatch(setServMem(null));
+      setManualServStorage(false);
+      dispatch(setServStorage(null));
+      dispatch(setSorageComment(null));
+      setManualServNets(false);
+      dispatch(setServerNets(null));
+      dispatch(setNetsComment(null));
+      dispatch(setServerPeriod(null));
+      dispatch(setServerDate(null));
+      dispatch(setServerComment(null));
     }
   },[dispatch, serverReason])
 
@@ -89,6 +129,17 @@ const [manualServNets, setManualServNets] = useState(false);
       dispatch(setServerResourceName(null));
       setManualServCores(false);
       dispatch(setServCores(null));
+      setManualServMem(false);
+      dispatch(setServMem(null));
+      setManualServStorage(false);
+      dispatch(setServStorage(null));
+      dispatch(setSorageComment(null));
+      setManualServNets(false);
+      dispatch(setServerNets(null));
+      dispatch(setNetsComment(null));
+      dispatch(setServerPeriod(null));
+      dispatch(setServerDate(null));
+      dispatch(setServerComment(null));
     }
   },[dispatch, serverPlaceVal])
 
@@ -102,6 +153,17 @@ const [manualServNets, setManualServNets] = useState(false);
       dispatch(setServerResourceName(null));
       setManualServCores(false);
       dispatch(setServCores(null));
+      setManualServMem(false);
+      dispatch(setServMem(null));
+      setManualServStorage(false);
+      dispatch(setServStorage(null));
+      dispatch(setSorageComment(null));
+      setManualServNets(false);
+      dispatch(setServerNets(null));
+      dispatch(setNetsComment(null));
+      dispatch(setServerPeriod(null));
+      dispatch(setServerDate(null));
+      dispatch(setServerComment(null));
     }
   },[dispatch, servType])
 
@@ -114,6 +176,17 @@ const [manualServNets, setManualServNets] = useState(false);
       dispatch(setServerResourceName(null));
       setManualServCores(false);
       dispatch(setServCores(null));
+      setManualServMem(false);
+      dispatch(setServMem(null));
+      setManualServStorage(false);
+      dispatch(setServStorage(null));
+      dispatch(setSorageComment(null));
+      setManualServNets(false);
+      dispatch(setServerNets(null));
+      dispatch(setNetsComment(null));
+      dispatch(setServerPeriod(null));
+      dispatch(setServerDate(null));
+      dispatch(setServerComment(null));
     }
   },[dispatch, servGroup])
 
@@ -125,6 +198,17 @@ const [manualServNets, setManualServNets] = useState(false);
       dispatch(setServerResourceName(null));
       setManualServCores(false);
       dispatch(setServCores(null));
+      setManualServMem(false);
+      dispatch(setServMem(null));
+      setManualServStorage(false);
+      dispatch(setServStorage(null));
+      dispatch(setSorageComment(null));
+      setManualServNets(false);
+      dispatch(setServerNets(null));
+      dispatch(setNetsComment(null));
+      dispatch(setServerPeriod(null));
+      dispatch(setServerDate(null));
+      dispatch(setServerComment(null));
     }
   },[dispatch, servOperSystem])
 
@@ -135,6 +219,17 @@ const [manualServNets, setManualServNets] = useState(false);
       dispatch(setServerResourceName(null));
       setManualServCores(false);
       dispatch(setServCores(null));
+      setManualServMem(false);
+      dispatch(setServMem(null));
+      setManualServStorage(false);
+      dispatch(setServStorage(null));
+      dispatch(setSorageComment(null));
+      setManualServNets(false);
+      dispatch(setServerNets(null));
+      dispatch(setNetsComment(null));
+      dispatch(setServerPeriod(null));
+      dispatch(setServerDate(null));
+      dispatch(setServerComment(null));
     }
   },[dispatch, serverResManager])
 
@@ -144,12 +239,138 @@ const [manualServNets, setManualServNets] = useState(false);
     } else {
       setManualServCores(false);
       dispatch(setServCores(null));
+      setManualServMem(false);
+      dispatch(setServMem(null));
+      setManualServStorage(false);
+      dispatch(setServStorage(null));
+      dispatch(setSorageComment(null));
+      setManualServNets(false);
+      dispatch(setServerNets(null));
+      dispatch(setNetsComment(null));
+      dispatch(setServerPeriod(null));
+      dispatch(setServerDate(null));
+      dispatch(setServerComment(null));
     }
   },[dispatch, serverName])
 
   useEffect(() => {
     if ( manualServCores ) document.getElementById('servCoresManual')?.focus();
   },[manualServCores])
+
+  useEffect(() => {
+    if ( servCoresVal ) {
+      if ( servCoresVal && !manualServCores ) document.getElementById('servMem')?.focus();
+    } else {
+      setManualServMem(false);
+      dispatch(setServMem(null));
+      setManualServStorage(false);
+      dispatch(setServStorage(null));
+      dispatch(setSorageComment(null));
+      setManualServNets(false);
+      dispatch(setServerNets(null));
+      dispatch(setNetsComment(null));
+      dispatch(setServerPeriod(null));
+      dispatch(setServerDate(null));
+      dispatch(setServerComment(null));
+    }
+  },[dispatch, manualServCores, servCoresVal])
+
+  useEffect(() => {
+    if ( manualServMem ) document.getElementById('servMemManual')?.focus();
+  },[manualServMem])
+
+  useEffect(() => {
+    if ( servMemVal ) {
+      if ( servMemVal && !manualServMem ) document.getElementById('servStorage')?.focus();
+    } else {
+      setManualServStorage(false);
+      dispatch(setServStorage(null));
+      dispatch(setSorageComment(null));
+      setManualServNets(false);
+      dispatch(setServerNets(null));
+      dispatch(setNetsComment(null));
+      dispatch(setServerPeriod(null));
+      dispatch(setServerDate(null));
+      dispatch(setServerComment(null));
+    }
+  },[dispatch, manualServMem, servMemVal])
+
+  useEffect(() => {
+    if ( manualServStorage ) document.getElementById('servStorageManual')?.focus();
+  },[manualServStorage])
+
+  useEffect(() => {
+    if ( servStorageVal ) {
+      if ( servStorageVal && !manualServStorage ) document.getElementById('sorageComment')?.focus();
+    } else {
+      dispatch(setSorageComment(null));
+      setManualServNets(false);
+      dispatch(setServerNets(null));
+      dispatch(setNetsComment(null));
+      dispatch(setServerPeriod(null));
+      dispatch(setServerDate(null));
+      dispatch(setServerComment(null));
+    }
+  },[dispatch, manualServStorage, servStorageVal])
+
+  useEffect(() => {
+    if ( sorageCommentVal ) document.getElementById('servNets')?.focus(); 
+    else {
+      setManualServNets(false);
+      dispatch(setServerNets(null));
+      dispatch(setNetsComment(null));
+      dispatch(setServerPeriod(null));
+      dispatch(setServerDate(null));
+      dispatch(setServerComment(null));
+    }
+  },[dispatch, sorageCommentVal])
+
+  useEffect(() => {
+    if ( manualServNets ) document.getElementById('servNetsManual')?.focus();
+  },[manualServNets])
+
+  useEffect(() => {
+    if ( serverNetsVal ) {
+      if ( serverNetsVal && !manualServNets ) document.getElementById('netsComment')?.focus();
+    } else {
+      dispatch(setNetsComment(null));
+      dispatch(setServerPeriod(null));
+      dispatch(setServerDate(null));
+      dispatch(setServerComment(null));
+    }
+  },[dispatch, manualServNets, serverNetsVal])
+  
+  useEffect(() => {
+    if ( netsCommentVal ) document.getElementById('serverPeriod')?.focus(); 
+    else {
+      dispatch(setServerPeriod(null));
+      dispatch(setServerDate(null));
+      dispatch(setServerComment(null));
+    }
+  },[dispatch, netsCommentVal])
+  
+  useEffect(() => {
+    if ( serverPeriodVal ) 
+      if ( serverPeriodVal?.code === "PERMANENT" ) {
+        document.getElementById('serverComment')?.focus();
+        dispatch(setServerDate(null));
+      } 
+      if ( serverPeriodVal?.code === "TEMPORARY" ) document.getElementById('expDate')?.focus(); 
+    else {
+      dispatch(setServerDate(null));
+      dispatch(setServerComment(null));
+    }
+  },[dispatch, serverPeriodVal])
+  
+  useEffect(() => {
+    if ( serverDateVal ) document.getElementById('serverComment')?.focus();
+    else {
+      dispatch(setServerComment(null));
+    }
+  },[dispatch, serverDateVal])
+
+
+
 
   return (
     <>
@@ -307,6 +528,7 @@ const [manualServNets, setManualServNets] = useState(false);
                 selectClear  = { () => {
                   dispatch(setServCores(null));
                   setManualServCores(false);
+                  document.getElementById('servCores')?.focus();
                 } }
                 placeholder = 'Количество ядер'
                 selectList = {[
@@ -341,6 +563,221 @@ const [manualServNets, setManualServNets] = useState(false);
           : null
         }
       </div>
+
+      <div>
+        <label htmlFor="servMem">Количество оперативной памяти (Гб)</label>
+        { !manualServMem
+          ? servCoresVal && servCoresVal !== 'MANUAL'
+            ? <Select
+                selectHandler = { val => {
+                  dispatch(setServMem(val.value));
+                  if ( val.value && val.value === 'MANUAL' ) setManualServMem(true);
+                  else setManualServMem(false);                  
+                } }
+                selectClear  = { () => {
+                  dispatch(setServMem(null));
+                  setManualServMem(false);
+                  document.getElementById('servMem')?.focus();
+                } }
+                placeholder = 'Количество оперативной памяти (Гб)'
+                selectList = {[
+                  {'id': 2, 'name': '2', 'value': 2},
+                  {'id': 4, 'name': '4', 'value': 4},
+                  {'id': 6, 'name': '6', 'value': 6},
+                  {'id': 8, 'name': '8', 'value': 8},
+                  {'id': 10, 'name': '10', 'value': 10},
+                  {'id': 11, 'name': 'Другое значение (указать вручную)', 'value': 'MANUAL'}]}
+                val = ''
+                name='servMem'
+                id = 'servMem'
+              />
+            : <Plug/>   
+          : null
+        }
+        { manualServMem
+          ? <Input 
+              inputHandler = { val => {
+                dispatch(setServMem(val));
+                if ( !val ) setManualServMem(false);
+              } }
+              inputClear = { () => {
+                dispatch(setServMem(null));
+                setManualServMem(false); 
+              } }
+              placeholder = 'Количество оперативной памяти (Гб)'
+              val = ''
+              readOnly = {false}
+              id = 'servMemManual'
+            />
+          : null
+        }
+      </div>
+
+      <div>
+        <label htmlFor="servStorage">Жесткий диск (Гб)</label>
+        { !manualServStorage
+          ? servMemVal && servMemVal !== 'MANUAL'
+            ? <Select
+                selectHandler = { val => {
+                  dispatch(setServStorage(val.value));
+                  if ( val.value && val.value === 'MANUAL' ) setManualServStorage(true);
+                  else setManualServStorage(false);                  
+                } }
+                selectClear  = { () => {
+                  dispatch(setServStorage(null));
+                  setManualServStorage(false);
+                  document.getElementById('servStorage')?.focus();
+                } }
+                placeholder = 'Жесткий диск (Гб)'
+                selectList = {[
+                  {'id': 60, 'name': '60', 'value': 60},
+                  {'id': 70, 'name': '70', 'value': 70},
+                  {'id': 80, 'name': '80', 'value': 80},
+                  {'id': 11, 'name': 'Другое значение (указать вручную)', 'value': 'MANUAL'}]}
+                val = ''
+                name='servStorage'
+                id = 'servStorage'
+              />
+            : <Plug/>   
+          : null
+        }
+        { manualServStorage
+          ? <Input 
+              inputHandler = { val => {
+                dispatch(setServStorage(val));
+                if ( !val ) setManualServStorage(false);
+              } }
+              inputClear = { () => {
+                dispatch(setServStorage(null));
+                setManualServStorage(false); 
+              } }
+              placeholder = 'Жесткий диск (Гб)'
+              val = ''
+              readOnly = {false}
+              id = 'servStorageManual'
+            />
+          : null
+        }
+      </div>
+      { servMemVal
+        ? <p>Требуется указать суммарный объем дискового пространства для сервера.<br/>В случае необходимости наличия нескольких дисков, в примечании необходимо указать количество и требуемый размер каждого диска.</p>
+        : null
+      }
+
+      <div>
+        <label htmlFor="sorageComment">Жёсткий диск - комментарии по разбиению</label>
+        { servStorageVal && servStorageVal !== 'MANUAL'
+          ? <Comments 
+              inputHandler = { val => dispatch(setSorageComment(val)) }
+              id = 'sorageComment'
+            />
+          : <Plug/>    
+        }
+      </div>
+
+      <div>
+        <label htmlFor="servNets">Количество сетевых интерфейсов</label>
+        { !manualServNets
+          ? sorageCommentVal
+            ? <Select
+                selectHandler = { val => {
+                  dispatch(setServerNets(val.value));
+                  if ( val.value && val.value === 'MANUAL' ) setManualServNets(true);
+                  else setManualServNets(false);                  
+                } }
+                selectClear  = { () => {
+                  dispatch(setServerNets(null));
+                  setManualServNets(false);
+                  document.getElementById('servNets')?.focus();
+                } }
+                placeholder = 'Количество сетевых интерфейсов'
+                selectList = {[
+                  {'id': 1, 'name': '1', 'value': 1},
+                  {'id': 2, 'name': '2', 'value': 2},
+                  {'id': 3, 'name': '3', 'value': 3},
+                  {'id': 11, 'name': 'Другое значение (указать вручную)', 'value': 'MANUAL'}]}
+                val = ''
+                name='servNets'
+                id = 'servNets'
+              />
+            : <Plug/>   
+          : null
+        }
+        { manualServNets
+          ? <Input 
+              inputHandler = { val => {
+                dispatch(setServerNets(val));
+                if ( !val ) setManualServNets(false);
+              } }
+              inputClear = { () => {
+                dispatch(setServerNets(null));
+                setManualServNets(false); 
+              } }
+              placeholder = 'Количество сетевых интерфейсов'
+              val = ''
+              readOnly = {false}
+              id = 'servNetsManual'
+            />
+          : null
+        }
+      </div>
+
+      <div>
+        <label htmlFor="netsComment">Сетевой интерфейс - комментарии</label>
+        { serverNetsVal && serverNetsVal !== 'MANUAL'
+          ? <Comments 
+              inputHandler = { val => dispatch(setNetsComment(val)) }
+              id = 'netsComment'
+            />
+          : <Plug/>    
+        }
+      </div>
+
+      <div>
+        <label htmlFor="serverPeriod">Период действия</label>
+        { netsCommentVal
+          ? <Select
+              selectHandler = { val => {
+                dispatch(setServerPeriod(val));                 
+              } }
+              selectClear  = { () => {
+                dispatch(setServerPeriod(null));
+                document.getElementById('serverPeriod')?.focus(); 
+              } }
+              placeholder = 'Период действия'
+              selectList = {[{id: 1, name: 'Постоянный ресурс', code: 'PERMANENT'}, {id: 2, name: 'Временный ресурс', code: 'TEMPORARY'}, ]}
+              val = ''
+              name='serverPeriod'
+              id = 'serverPeriod'
+            /> 
+          : <Plug/>  
+        }      
+      </div>
+
+      { serverPeriodVal?.code === "TEMPORARY"
+        ?  <div>
+            <label htmlFor="expDate">Действует до</label>
+            <InputDate
+              dateHandler = { val => dispatch(setServerDate(dateToStrDate(val))) }
+              lang='ru'
+              id = 'expDate'
+            />
+          </div>
+        : null  
+      }
+
+
+      <div>
+        <label htmlFor="serverComment">Примечание</label>
+        { serverPeriodVal?.code === 'PERMANENT' || ( serverPeriodVal?.code === 'PERMANENT' && serverDateVal )
+          ? <Comments 
+              inputHandler = { val => dispatch(setServerComment(val)) }
+              id = 'serverComment'
+            />
+          : <Plug/>    
+        }
+      </div>
+
     </>
   )
 
