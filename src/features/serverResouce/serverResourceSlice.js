@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getServerPlace } from "./serverResourceSliceAPI";
+import { getServerPlace, getServerGroup, getOperSystems } from "./serverResourceSliceAPI";
 
 const initialState = {
   loading: false,
@@ -8,10 +8,19 @@ const initialState = {
   serverPlace: null,
   serverPlacesList: [],
   serverType: null,
+  serverGroupList: [],
+  serverGroup: null,
+  serverOperSystemList: [],
+  serverOperSystem: null,
+  serverResourceManager: null,
+  serverResourceName: null,
+  servCores: null,
 
 }
 
 export const getServerPlaceList = createAsyncThunk( 'serverResource/getServerPlaceList', async () => await getServerPlace({}) );
+export const getServerGroupList = createAsyncThunk( 'serverResource/getServerGroupList', async () => await getServerGroup({}) );
+export const getOperSystemsList = createAsyncThunk( 'serverResource/getOperSystemsList', async () => await getOperSystems({}) );
 
 export const serverResourceSlice = createSlice({
   name: 'serverResource',
@@ -24,6 +33,11 @@ export const serverResourceSlice = createSlice({
       state.serverReasons = null;
       state.serverPlace = null;
       state.serverType = null;
+      state.serverGroup = null;
+      state.serverOperSystem = null;
+      state.serverResourceManager = null;
+      state.serverResourceName = null;
+      state.servCores = null;
       
     },
 
@@ -42,6 +56,26 @@ export const serverResourceSlice = createSlice({
     setServerType: (state, action) => {
       state.serverType = action.payload;
     },
+
+    setServerGroup: (state, action) => {
+      state.serverGroup = action.payload;
+    },
+
+    setServerOperSystem: (state, action) => {
+      state.serverOperSystem = action.payload;
+    },
+
+    setServerResourceManager: (state, action) => {
+      state.serverResourceManager = action.payload;
+    },
+
+    setServerResourceName: (state, action) => {
+      state.serverResourceName = action.payload;
+    },
+
+    setServCores: (state, action) => {
+      state.servCores = action.payload;
+    },
   },
 
   extraReducers: (builder) => {
@@ -52,10 +86,25 @@ export const serverResourceSlice = createSlice({
         state.serverPlacesList = action.payload;
       })
 
+      .addCase(getServerGroupList.pending, ( state ) => { state.loading = true })
+      .addCase(getServerGroupList.fulfilled, ( state, action ) => {
+        state.loading = false;
+        state.serverGroupList = action.payload;
+      })
+
+      .addCase(getOperSystemsList.pending, ( state ) => { state.loading = true })
+      .addCase(getOperSystemsList.fulfilled, ( state, action ) => {
+        state.loading = false;
+        state.serverOperSystemList = action.payload;
+      })
+
   }
 });
 
-export const { clearServerForm, setServerAction, setServerReasons, setServerPlace, setServerType } = serverResourceSlice.actions;
+export const { clearServerForm, setServerAction, setServerReasons, setServerPlace, setServerType,
+  setServerGroup, setServerOperSystem, setServerResourceManager, setServerResourceName, setServCores,
+
+ } = serverResourceSlice.actions;
 
 export const loading = ( state ) => state.serverResource.loading;
 export const serverAction = ( state ) => state.serverResource.serverAction;
@@ -63,5 +112,12 @@ export const serverReasons = ( state ) => state.serverResource.serverReasons;
 export const serverPlace = ( state ) => state.serverResource.serverPlace;
 export const serverPlacesList = ( state ) => state.serverResource.serverPlacesList;
 export const serverType = ( state ) => state.serverResource.serverType;
+export const serverGroupList = ( state ) => state.serverResource.serverGroupList;
+export const serverGroup = ( state ) => state.serverResource.serverGroup;
+export const serverOperSystemList = ( state ) => state.serverResource.serverOperSystemList;
+export const serverOperSystem = ( state ) => state.serverResource.serverOperSystem;
+export const serverResourceManager = ( state ) => state.serverResource.serverResourceManager;
+export const serverResourceName = ( state ) => state.serverResource.serverResourceName;
+export const servCores = ( state ) => state.serverResource.servCores;
 
 export default serverResourceSlice.reducer;

@@ -10,4 +10,13 @@
   border-radius: 2px;
   background-color: #e9e9e9;
   transition: background-color 1s;
+
+  &.load {
+    max-height: 47px;
+    min-height: 47px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
 }
