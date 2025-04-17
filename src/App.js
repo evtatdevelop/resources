@@ -15,6 +15,9 @@ import { clearFileForm,
 import { deployDate } from './config';
 import { setResourceType } from './appSlice';
 import { setServerAction } from './features/serverResouce/serverResourceSlice';
+import { serverComment, clearServerForm, serverPlace, serverType, serverGroup, serverOperSystem, serverResourceManager,
+  serverResourceName, servCores, servMem, servStorage, sorageComment, serverNets, netsComment, serverPeriod, serverDate, serverReasons
+ } from './features/serverResouce/serverResourceSlice';
 
 function App() {
   const dispatch = useDispatch(); 
@@ -35,6 +38,23 @@ function App() {
   const fileNote = useSelector(fileNotes);
   const fileBossData = useSelector(fileBoss);
   const fileModRes = useSelector(fileModResource);
+  const serverCommentVal = useSelector(serverComment);
+
+  const serverReason = useSelector(serverReasons);
+  const serverPlaceVal = useSelector(serverPlace);
+  const servType = useSelector(serverType);
+  const servGroup = useSelector(serverGroup);
+  const servOperSystem = useSelector(serverOperSystem);
+  const serverResManager = useSelector(serverResourceManager);
+  const serverName = useSelector(serverResourceName);
+  const servCoresVal = useSelector(servCores);
+  const servMemVal = useSelector(servMem);
+  const servStorageVal = useSelector(servStorage);
+  const sorageCommentVal = useSelector(sorageComment);
+  const serverNetsVal = useSelector(serverNets);
+  const netsCommentVal = useSelector(netsComment);
+  const serverPeriodVal = useSelector(serverPeriod);
+  const serverDateVal = useSelector(serverDate);
 
   const fileSubmit = () => {
     console.log('action', action);
@@ -51,6 +71,29 @@ function App() {
     console.log('fileBossData', fileBossData);
     console.log('fileModRes', fileModRes);
     dispatch(clearFileForm());
+    setResource(null);
+    dispatch(setResourceType(null));
+    document.getElementById('requestType')?.focus();
+  }
+
+  const serverSubmit = () => {
+    console.log('serverReason ', serverReason);
+    console.log('serverPlaceVal ', serverPlaceVal);
+    console.log('servType ', servType);
+    console.log('servGroup ', servGroup);
+    console.log('serverOperSystem ', servOperSystem);
+    console.log('serverResManager ', serverResManager);
+    console.log('serverName ', serverName);
+    console.log('servCoresVal ', servCoresVal);
+    console.log('servMemVal ', servMemVal);
+    console.log('servStorageVal ', servStorageVal);
+    console.log('sorageCommentVal ', sorageCommentVal);
+    console.log('serverNetsVal ', serverNetsVal);
+    console.log('netsCommentVal ', netsCommentVal);
+    console.log('serverPeriodVal ', serverPeriodVal);
+    console.log('serverDateVal ', serverDateVal);
+    console.log('serverCommentVal ', serverCommentVal);
+    dispatch(clearServerForm());
     setResource(null);
     dispatch(setResourceType(null));
     document.getElementById('requestType')?.focus();
@@ -152,9 +195,10 @@ function App() {
                 : null
               }   */}
 
-              { resource?.type_code === 'FILE' && fileBossData //! file resource
+              { ( resource?.type_code === 'FILE' && fileBossData ) 
+                || ( resource?.type_code === 'SERVER' && serverCommentVal)
                 ? <button type='button' className={styles.submitBtn}
-                    onClick={ () => fileSubmit() }
+                    onClick={ () => resource?.type_code === 'FILE' ? fileSubmit() : serverSubmit() }
                   >Отправить запрос на согласование</button>
                 : null
               }

@@ -73,6 +73,7 @@ export const ModifyFileResource = () => {
                       selectClear  = { () => {
                         dispatch(setFileValue(null));
                         setManualFileVal(false);
+                        document.getElementById('fileValue')?.focus();
                       } }
                       placeholder = 'Увеличить на (Гб)'
                       selectList = {[

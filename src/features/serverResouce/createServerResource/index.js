@@ -7,7 +7,7 @@ import { serverAction, setServerReasons, serverReasons, setServerPlace, serverPl
   getOperSystemsList, serverOperSystemList, setServerOperSystem, serverOperSystem, setServerResourceManager, serverResourceManager,
   setServerResourceName, serverResourceName, setServCores, servCores, setServMem, servMem,
   setServStorage, servStorage, setSorageComment, sorageComment, setServerNets, serverNets, setNetsComment, netsComment,
-  setServerPeriod, serverPeriod, setServerDate, serverDate, setServerComment, serverComment, 
+  setServerPeriod, serverPeriod, setServerDate, serverDate, setServerComment,  
  } from '../serverResourceSlice';
 import { Comments } from '../../components/comments/comments';
 import { SelectInput } from '../../components/selectInput';
@@ -38,29 +38,29 @@ export const CreateServerResouce = () => {
   const netsCommentVal = useSelector(netsComment);
   const serverPeriodVal = useSelector(serverPeriod);
   const serverDateVal = useSelector(serverDate);
-  const serverCommentVal = useSelector(serverComment);
+  // const serverCommentVal = useSelector(serverComment);
 
 const [manualServCores, setManualServCores] = useState(false);
 const [manualServMem, setManualServMem] = useState(false);
 const [manualServStorage, setManualServStorage] = useState(false);
 const [manualServNets, setManualServNets] = useState(false);
 
-  console.log('serverReason ', serverReason);
-  console.log('serverPlaceVal ', serverPlaceVal);
-  console.log('servType ', servType);
-  console.log('servGroup ', servGroup);
-  console.log('serverOperSystem ', servOperSystem);
-  console.log('serverResManager ', serverResManager);
-  console.log('serverName ', serverName);
-  console.log('servCoresVal ', servCoresVal);
-  console.log('servMemVal ', servMemVal);
-  console.log('servStorageVal ', servStorageVal);
-  console.log('sorageCommentVal ', sorageCommentVal);
-  console.log('serverNetsVal ', serverNetsVal);
-  console.log('netsCommentVal ', netsCommentVal);
-  console.log('serverPeriodVal ', serverPeriodVal);
-  console.log('serverDateVal ', serverDateVal);
-  console.log('serverCommentVal ', serverCommentVal);
+  // console.log('serverReason ', serverReason);
+  // console.log('serverPlaceVal ', serverPlaceVal);
+  // console.log('servType ', servType);
+  // console.log('servGroup ', servGroup);
+  // console.log('serverOperSystem ', servOperSystem);
+  // console.log('serverResManager ', serverResManager);
+  // console.log('serverName ', serverName);
+  // console.log('servCoresVal ', servCoresVal);
+  // console.log('servMemVal ', servMemVal);
+  // console.log('servStorageVal ', servStorageVal);
+  // console.log('sorageCommentVal ', sorageCommentVal);
+  // console.log('serverNetsVal ', serverNetsVal);
+  // console.log('netsCommentVal ', netsCommentVal);
+  // console.log('serverPeriodVal ', serverPeriodVal);
+  // console.log('serverDateVal ', serverDateVal);
+  // console.log('serverCommentVal ', serverCommentVal);
 
   useEffect(() => {
     if ( action ) {
@@ -769,7 +769,7 @@ const [manualServNets, setManualServNets] = useState(false);
 
       <div>
         <label htmlFor="serverComment">Примечание</label>
-        { serverPeriodVal?.code === 'PERMANENT' || ( serverPeriodVal?.code === 'PERMANENT' && serverDateVal )
+        { serverPeriodVal?.code === 'PERMANENT' || ( serverPeriodVal?.code === 'TEMPORARY' && serverDateVal )
           ? <Comments 
               inputHandler = { val => dispatch(setServerComment(val)) }
               id = 'serverComment'

@@ -206,6 +206,7 @@ export const CreateFileResouce = () => {
                 selectClear  = { () => {
                   dispatch(setFileValue(null));
                   setManualFileVal(false);
+                  document.getElementById('fileValue')?.focus();
                 } }
                 placeholder = 'Требуемый объем (Гб)'
                 selectList = {[
@@ -265,6 +266,7 @@ export const CreateFileResouce = () => {
               } }
               selectClear  = { () => {
                 dispatch(setFilePlace(null));
+                document.getElementById('filePlace')?.focus();
               } }
               placeholder = 'Площадка физического местоположения ресурса'
               selectList = {filePlaces}
@@ -285,6 +287,7 @@ export const CreateFileResouce = () => {
               } }
               selectClear  = { () => {
                 dispatch(setFilePeriod(null));
+                document.getElementById('filePeriod')?.focus();
               } }
               placeholder = 'Период действия'
               selectList = {[{id: 1, name: 'Постоянный ресурс', code: 'PERMANENT'}, {id: 2, name: 'Временный ресурс', code: 'TEMPORARY'}, ]}
@@ -329,7 +332,10 @@ export const CreateFileResouce = () => {
           ( ( filePeriods?.code === "PERMANENT" && filePeriods ) || ( filePeriods?.code === "TEMPORARY" && filePeriods && fileDateData ) ) && fileResManager
           ? <Select
               selectHandler = { val => dispatch(setFileManagerAccess(val)) }
-              selectClear  = { () => dispatch(setFileManagerAccess(null)) }
+              selectClear  = { () => {
+                dispatch(setFileManagerAccess(null));
+                document.getElementById('managerNoAccess')?.focus();
+              } }
               placeholder = 'доступ к ресурсу для ответственного'
               selectList = {[{id: 1, name: 'Доступ необходим', code: 'ACCESS'}, {id: 2, name: 'Доступ не требуется', code: 'NOACCESS'}, ]}
               val = ''
