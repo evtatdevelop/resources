@@ -23,7 +23,7 @@ export const FileResourceList = () => {
   
   const [filtred, setFiltred] = useState([]);
 
-  const search = val => fileResources.filter(item => item.dfs_path.toUpperCase().includes(val.toUpperCase()) || item.agree_fio.toUpperCase().includes(val.toUpperCase()) );
+  const search = val => fileResources.filter(item => item[1].toUpperCase().includes(val.toUpperCase()) || item[2].toUpperCase().includes(val.toUpperCase()) );
 
   const clear = () => setFiltred(fileResources);
 
@@ -49,7 +49,7 @@ export const FileResourceList = () => {
               onClick={() => reSetResource()}
             >
               <label htmlFor="">Сетевой путь</label>
-              <div>{fileModRes.dfs_path}
+              <div>{fileModRes[1]}
               <button type="button"
                 onClick={() => reSetResource()}
                 aria-label="Clear"
@@ -58,7 +58,7 @@ export const FileResourceList = () => {
             </div>          
             <div>
               <label htmlFor="">Ответственный за ресурс</label>
-              <div>{fileModRes.agree_fio}</div> 
+              <div>{fileModRes[2]}</div> 
             </div>           
           </div>
 
@@ -78,11 +78,11 @@ export const FileResourceList = () => {
             { load
               ? <TestLoader/>
               : <ul className={styles.list}>
-                  { filtred.map(item => <li key={item.id}
+                  { filtred.map(item => <li key={item[0]}
                       onClick={() => setFileResource(item)}
                     >
-                      <div className={styles.path}>{item.dfs_path}</div>
-                      <div>{item.agree_fio}</div>
+                      <div className={styles.path}>{item[1]}</div>
+                      <div>{item[2]}</div>
                     </li>)
                   }
                 </ul>

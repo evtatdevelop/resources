@@ -93,15 +93,24 @@ export const serverResourceSlice = createSlice({
     },
 
     setServCores: (state, action) => {
-      state.servCores = action.payload;
+      // state.servCores = action.payload;
+      if ( Number.isInteger(+action.payload) ) 
+        state.servCores = action.payload;
+      else state.servCores = null;
     },
 
     setServMem: (state, action) => {
-      state.servMem = action.payload;
+      // state.servMem = action.payload;
+      if ( Number.isInteger(+action.payload) ) 
+        state.servMem = action.payload;
+      else state.servMem = null;
     },
 
     setServStorage: (state, action) => {
-      state.servStorage = action.payload;
+      // state.servStorage = action.payload;
+      if ( Number.isInteger(+action.payload) ) 
+        state.servStorage = action.payload;
+      else state.servStorage = null;
     },
 
     setSorageComment: (state, action) => {
@@ -109,7 +118,10 @@ export const serverResourceSlice = createSlice({
     },
 
     setServerNets: (state, action) => {
-      state.serverNets = action.payload;
+      // state.serverNets = action.payload;
+      if ( Number.isInteger(+action.payload) ) 
+        state.serverNets = action.payload;
+      else state.serverNets = null;
     },
 
     setNetsComment: (state, action) => {
