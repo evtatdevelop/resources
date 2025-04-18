@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getServerPlace, getServerGroup, getOperSystems } from "./serverResourceSliceAPI";
+import { getServerPlace, getServerGroup, getOperSystems, getServerResouces } from "./serverResourceSliceAPI";
 
 const initialState = {
   loading: false,
@@ -23,11 +23,14 @@ const initialState = {
   serverPeriod: null,
   serverDate: null,
   serverComment: null,
+  serverResouceList: [],
+  serverModResource: null,
 }
 
 export const getServerPlaceList = createAsyncThunk( 'serverResource/getServerPlaceList', async () => await getServerPlace({}) );
 export const getServerGroupList = createAsyncThunk( 'serverResource/getServerGroupList', async () => await getServerGroup({}) );
 export const getOperSystemsList = createAsyncThunk( 'serverResource/getOperSystemsList', async () => await getOperSystems({}) );
+export const getServerResouceList = createAsyncThunk( 'serverResource/getServerResouceList', async () => await getServerResouces({}) );
 
 export const serverResourceSlice = createSlice({
   name: 'serverResource',
@@ -53,6 +56,7 @@ export const serverResourceSlice = createSlice({
       state.serverPeriod = null;
       state.serverDate = null;
       state.serverComment = null;
+      state.serverModResource = null;
       
     },
 
@@ -123,6 +127,10 @@ export const serverResourceSlice = createSlice({
     setServerComment: (state, action) => {
       state.serverComment = action.payload;
     },
+
+    setServerModResource: (state, action) => {
+      state.serverModResource = action.payload;
+    },
   },
 
   extraReducers: (builder) => {
@@ -145,13 +153,19 @@ export const serverResourceSlice = createSlice({
         state.serverOperSystemList = action.payload;
       })
 
+      .addCase(getServerResouceList.pending, ( state ) => { state.loading = true })
+      .addCase(getServerResouceList.fulfilled, ( state, action ) => {
+        state.loading = false;
+        state.serverResouceList = action.payload;
+      })
+
   }
 });
 
 export const { clearServerForm, setServerAction, setServerReasons, setServerPlace, setServerType,
   setServerGroup, setServerOperSystem, setServerResourceManager, setServerResourceName, setServCores,
   setServMem, setServStorage, setSorageComment, setServerNets, setNetsComment, setServerPeriod,
-  setServerDate, setServerComment, 
+  setServerDate, setServerComment, setServerModResource, 
  } = serverResourceSlice.actions;
 
 export const loading = ( state ) => state.serverResource.loading;
@@ -175,5 +189,7 @@ export const netsComment = ( state ) => state.serverResource.netsComment;
 export const serverPeriod = ( state ) => state.serverResource.serverPeriod;
 export const serverDate = ( state ) => state.serverResource.serverDate;
 export const serverComment = ( state ) => state.serverResource.serverComment;
+export const serverResouceList = ( state ) => state.serverResource.serverResouceList;
+export const serverModResource = ( state ) => state.serverResource.serverModResource;
 
 export default serverResourceSlice.reducer;

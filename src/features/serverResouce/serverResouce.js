@@ -13,7 +13,7 @@ export const ServerResouce = () => {
   const resType = useSelector(resourceType);
   const action = useSelector(serverAction);
 
-  console.log('action ', action);
+  // console.log('action ', action);
     
   useEffect(() => {
     if ( resType )

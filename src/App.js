@@ -16,7 +16,8 @@ import { deployDate } from './config';
 import { setResourceType } from './appSlice';
 import { setServerAction } from './features/serverResouce/serverResourceSlice';
 import { serverComment, clearServerForm, serverPlace, serverType, serverGroup, serverOperSystem, serverResourceManager,
-  serverResourceName, servCores, servMem, servStorage, sorageComment, serverNets, netsComment, serverPeriod, serverDate, serverReasons
+  serverResourceName, servCores, servMem, servStorage, sorageComment, serverNets, netsComment, serverPeriod, serverDate, 
+  serverReasons, serverModResource,
  } from './features/serverResouce/serverResourceSlice';
 
 function App() {
@@ -55,6 +56,7 @@ function App() {
   const netsCommentVal = useSelector(netsComment);
   const serverPeriodVal = useSelector(serverPeriod);
   const serverDateVal = useSelector(serverDate);
+  const serverModRes = useSelector(serverModResource);
 
   const fileSubmit = () => {
     console.log('action', action);
@@ -93,6 +95,7 @@ function App() {
     console.log('serverPeriodVal ', serverPeriodVal);
     console.log('serverDateVal ', serverDateVal);
     console.log('serverCommentVal ', serverCommentVal);
+    console.log('serverModRes ', serverModRes);
     dispatch(clearServerForm());
     setResource(null);
     dispatch(setResourceType(null));
@@ -189,11 +192,6 @@ function App() {
                 ? <ServerResouce/>
                 : <FileResouce/>
               }  
-{/* 
-              { resource?.type_code === 'SERVER'
-                ? <ServerResouce/>
-                : null
-              }   */}
 
               { ( resource?.type_code === 'FILE' && fileBossData ) 
                 || ( resource?.type_code === 'SERVER' && serverCommentVal)

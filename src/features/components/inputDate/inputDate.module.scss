@@ -43,15 +43,15 @@
       padding: 0;
       margin: 0;
       background-color: transparent;
-      width: 2vmax;
-      height: 2vmax;
+      width: 30px;
+      height: 30px;
       color: gray;
       transition: color 0.3s;
-      font-size: 1.7vmax;
+      font-size: 24px;
       font-weight: 100;
       opacity: 0;
       transition: opacity 0.3s;
-      border-radius: 0.1vmax;
+      border-radius: 2px;
 
       &.showClnBtn {
         opacity: 1;
@@ -60,7 +60,6 @@
       &:focus,
       &:hover {
         color: red;
-        color: coral;
       }
     }
   }

@@ -48,7 +48,7 @@ export const FileResourceList = () => {
             <div
               onClick={() => reSetResource()}
             >
-              <label htmlFor="">Желаемое имя ресурса</label>
+              <label htmlFor="">Сетевой путь</label>
               <div>{fileModRes.dfs_path}
               <button type="button"
                 onClick={() => reSetResource()}
