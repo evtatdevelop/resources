@@ -47,8 +47,9 @@ export const ModifyFileResource = () => {
   }, [dispatch, fileVal])
 
   useEffect(() => {
-    if ( fileReason ) document.getElementById('fileNotes')?.focus();
-    else {
+    if ( fileReason ){ 
+      // document.getElementById('fileNotes')?.focus();
+    } else {
       dispatch(setFileNotes(null));
       dispatch(setFileBoss(null));  
     }

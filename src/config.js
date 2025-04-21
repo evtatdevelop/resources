@@ -1,5 +1,5 @@
 let mode = 'local';
-mode = 'prod';
+// mode = 'prod';
 export const deployDate = '2025-04-16';
 export let apiBase;
 export let pathBase = '';

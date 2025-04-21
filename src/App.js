@@ -11,14 +11,15 @@ import { ServerResouce } from './features/serverResouce/serverResouce';
 import { clearFileForm, 
   fileAction, fileResourceName, fileValue, fileReasons, filePlace, filePeriod, fileResourceManager, fileManagerAccess,
   fileUsers, fileDate, fileNotes,  fileBoss, fileModResource,
-  setFileAction, } from './features/fileResouce/fileResourceSlice';
+  setFileAction, fileFormSubmit, 
+} from './features/fileResouce/fileResourceSlice';
 import { deployDate } from './config';
 import { setResourceType } from './appSlice';
 import { setServerAction } from './features/serverResouce/serverResourceSlice';
 import { serverComment, clearServerForm, serverPlace, serverType, serverGroup, serverOperSystem, serverResourceManager,
   serverResourceName, servCores, servMem, servStorage, sorageComment, serverNets, netsComment, serverPeriod, serverDate, 
-  serverReasons, serverModResource,
- } from './features/serverResouce/serverResourceSlice';
+  serverReasons, serverModResource, serverFormSubmit, serverAction
+} from './features/serverResouce/serverResourceSlice';
 
 function App() {
   const dispatch = useDispatch(); 
@@ -41,6 +42,7 @@ function App() {
   const fileModRes = useSelector(fileModResource);
   const serverCommentVal = useSelector(serverComment);
 
+  const servAction = useSelector(serverAction);
   const serverReason = useSelector(serverReasons);
   const serverPlaceVal = useSelector(serverPlace);
   const servType = useSelector(serverType);
@@ -59,19 +61,41 @@ function App() {
   const serverModRes = useSelector(serverModResource);
 
   const fileSubmit = () => {
-    console.log('action', action);
-    console.log('resourceName', resourceName);
-    console.log('fileVal', fileVal);
-    console.log('fileReason', fileReason);
-    console.log('filePlace', filePlaceVal);
-    console.log('filePeriods', filePeriods);
-    console.log('fileDateData', fileDateData);
-    console.log('fileResManager', fileResManager);
-    console.log('fileManagAccess', fileManagAccess);
-    console.log('fileNote', fileNote);
-    console.log('fileUserList', fileUserList);
-    console.log('fileBossData', fileBossData);
-    console.log('fileModRes', fileModRes);
+    // console.log('action', action);
+    // console.log('resourceName', resourceName);
+    // console.log('fileVal', fileVal);
+    // console.log('fileReason', fileReason);
+    // console.log('filePlace', filePlaceVal);
+    // console.log('filePeriods', filePeriods);
+    // console.log('fileDateData', fileDateData);
+    // console.log('fileResManager', fileResManager);
+    // console.log('fileManagAccess', fileManagAccess);
+    // console.log('fileNote', fileNote);
+    // console.log('fileUserList', fileUserList);
+    // console.log('fileBossData', fileBossData);
+    // console.log('fileModRes', fileModRes);
+
+    dispatch(fileFormSubmit({
+      "new_or_modify": action === "CREATE" ? 'NEW' : 'MODIFY', 
+      'file_name': resourceName,
+      'file_size_gb': fileVal,
+      'description': fileReason,
+      'file_its80_id': filePlaceVal ? filePlaceVal.id : null,
+      'regular_or_temporary': filePeriods ? filePeriods.code : null,
+      'temporary_date': fileDateData,
+      'file_app12_id_resp': fileResManager ? fileResManager.id : null,
+      'file_resp_need_access': fileManagAccess
+        ? fileManagAccess.code === "ACCESS" ? 1 : 0 
+        : null,
+      'file_users_list': fileUserList?.length 
+        ? fileUserList.reduce((res, item) => `${res}${res ? ', ': ''}${item.person.last_name} ${item.person.first_name} ${item.person.middle_name} (${item.access.name})`, '')
+        : null,
+      'comments': fileNote,
+      'app12_id_boss': fileBossData.id,
+      'file_path': fileModRes ? fileModRes[1] : null,
+      'file_its81_id': fileModRes ? fileModRes[0] : null,
+    }));
+
     dispatch(clearFileForm());
     setResource(null);
     dispatch(setResourceType(null));
@@ -79,23 +103,45 @@ function App() {
   }
 
   const serverSubmit = () => {
-    console.log('serverReason ', serverReason);
-    console.log('serverPlaceVal ', serverPlaceVal);
-    console.log('servType ', servType);
-    console.log('servGroup ', servGroup);
-    console.log('serverOperSystem ', servOperSystem);
-    console.log('serverResManager ', serverResManager);
-    console.log('serverName ', serverName);
-    console.log('servCoresVal ', servCoresVal);
-    console.log('servMemVal ', servMemVal);
-    console.log('servStorageVal ', servStorageVal);
-    console.log('sorageCommentVal ', sorageCommentVal);
-    console.log('serverNetsVal ', serverNetsVal);
-    console.log('netsCommentVal ', netsCommentVal);
-    console.log('serverPeriodVal ', serverPeriodVal);
-    console.log('serverDateVal ', serverDateVal);
-    console.log('serverCommentVal ', serverCommentVal);
-    console.log('serverModRes ', serverModRes);
+    // console.log('serverReason ', serverReason);
+    // console.log('serverPlaceVal ', serverPlaceVal);
+    // console.log('servType ', servType);
+    // console.log('servGroup ', servGroup);
+    // console.log('serverOperSystem ', servOperSystem);
+    // console.log('serverResManager ', serverResManager);
+    // console.log('serverName ', serverName);
+    // console.log('servCoresVal ', servCoresVal);
+    // console.log('servMemVal ', servMemVal);
+    // console.log('servStorageVal ', servStorageVal);
+    // console.log('sorageCommentVal ', sorageCommentVal);
+    // console.log('serverNetsVal ', serverNetsVal);
+    // console.log('netsCommentVal ', netsCommentVal);
+    // console.log('serverPeriodVal ', serverPeriodVal);
+    // console.log('serverDateVal ', serverDateVal);
+    // console.log('serverCommentVal ', serverCommentVal);
+    // console.log('serverModRes ', serverModRes);
+
+    dispatch(serverFormSubmit({
+      "new_or_modify": servAction === "CREATE" ? 'NEW' : 'MODIFY', 
+      'serverReason': serverReason,
+      'serverPlaceVal': serverPlaceVal,
+      'servType': servType,
+      'servGroup': servGroup,
+      'serverOperSystem': servOperSystem,
+      'serverResManager': serverResManager,
+      'serverName': serverName,
+      'servCoresVal': servCoresVal,
+      'servMemVal': servMemVal,
+      'servStorageVal': servStorageVal,
+      'sorageCommentVal': sorageCommentVal,
+      'serverNetsVal': serverNetsVal,
+      'netsCommentVal': netsCommentVal,
+      'serverPeriodVal': serverPeriodVal,
+      'serverDateVal': serverDateVal,
+      'serverCommentVal': serverCommentVal,
+      'serverModRes': serverModRes,
+    }));
+
     dispatch(clearServerForm());
     setResource(null);
     dispatch(setResourceType(null));
@@ -202,7 +248,7 @@ function App() {
               }
 
             </form>
-          : <TestLoader/>
+          : <div className={styles.loadScreen}><TestLoader/></div>
         }
 
       </main>

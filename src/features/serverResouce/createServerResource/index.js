@@ -314,8 +314,9 @@ const [manualServNets, setManualServNets] = useState(false);
   },[dispatch, manualServStorage, servStorageVal])
 
   useEffect(() => {
-    if ( sorageCommentVal ) document.getElementById('servNets')?.focus(); 
-    else {
+    if ( sorageCommentVal ) {
+      // document.getElementById('servNets')?.focus();
+    } else {
       setManualServNets(false);
       dispatch(setServerNets(null));
       dispatch(setNetsComment(null));
@@ -341,8 +342,9 @@ const [manualServNets, setManualServNets] = useState(false);
   },[dispatch, manualServNets, serverNetsVal])
   
   useEffect(() => {
-    if ( netsCommentVal ) document.getElementById('serverPeriod')?.focus(); 
-    else {
+    if ( netsCommentVal ) {
+      // document.getElementById('serverPeriod')?.focus();
+    } else {
       dispatch(setServerPeriod(null));
       dispatch(setServerDate(null));
       dispatch(setServerComment(null));

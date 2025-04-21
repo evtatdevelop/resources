@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getFilePlace, getFileResources } from "./fileResourceSliceAPI";
+import { getFilePlace, getFileResources, fileSubmit, } from "./fileResourceSliceAPI";
 
 const initialState = {
   loading: false,
@@ -22,6 +22,7 @@ const initialState = {
 
 export const getFilePlaceList = createAsyncThunk( 'fileResource/getFilePlaceList', async () => await getFilePlace({}) );
 export const getFileResourcesList = createAsyncThunk( 'fileResource/getFileResourcesList', async () => await getFileResources({}) );
+export const fileFormSubmit   = createAsyncThunk( 'fileResource/fileFormSubmit', async ( data ) => await fileSubmit(data) );
 
 export const fileResourceSlice = createSlice({
   name: 'fileResource',
@@ -132,6 +133,12 @@ export const fileResourceSlice = createSlice({
       .addCase(getFileResourcesList.fulfilled, ( state, action ) => {
         state.loading = false;
         state.fileResourcesList = [...action.payload];
+      })
+
+      .addCase(fileFormSubmit.pending, ( state ) => { state.loading = true })
+      .addCase(fileFormSubmit.fulfilled, ( state, action ) => {
+        state.loading = false;
+        console.log('fileFormSubmit', action.payload);
       })
 
   }

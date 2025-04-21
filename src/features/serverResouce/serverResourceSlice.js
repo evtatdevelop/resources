@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getServerPlace, getServerGroup, getOperSystems, getServerResouces } from "./serverResourceSliceAPI";
+import { getServerPlace, getServerGroup, getOperSystems, getServerResouces, serverSubmit } from "./serverResourceSliceAPI";
 
 const initialState = {
   loading: false,
@@ -31,6 +31,7 @@ export const getServerPlaceList = createAsyncThunk( 'serverResource/getServerPla
 export const getServerGroupList = createAsyncThunk( 'serverResource/getServerGroupList', async () => await getServerGroup({}) );
 export const getOperSystemsList = createAsyncThunk( 'serverResource/getOperSystemsList', async () => await getOperSystems({}) );
 export const getServerResouceList = createAsyncThunk( 'serverResource/getServerResouceList', async () => await getServerResouces({}) );
+export const serverFormSubmit   = createAsyncThunk( 'serverResource/serverFormSubmit', async ( data ) => await serverSubmit(data) );
 
 export const serverResourceSlice = createSlice({
   name: 'serverResource',
@@ -171,6 +172,11 @@ export const serverResourceSlice = createSlice({
         state.serverResouceList = action.payload;
       })
 
+      .addCase(serverFormSubmit.pending, ( state ) => { state.loading = true })
+      .addCase(serverFormSubmit.fulfilled, ( state, action ) => {
+        state.loading = false;
+        console.log('serverFormSubmit', action.payload);
+      })
   }
 });
 
