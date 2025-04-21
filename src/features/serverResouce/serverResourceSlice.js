@@ -25,6 +25,7 @@ const initialState = {
   serverComment: null,
   serverResouceList: [],
   serverModResource: null,
+  serverOrder: {},
 }
 
 export const getServerPlaceList = createAsyncThunk( 'serverResource/getServerPlaceList', async () => await getServerPlace({}) );
@@ -175,7 +176,7 @@ export const serverResourceSlice = createSlice({
       .addCase(serverFormSubmit.pending, ( state ) => { state.loading = true })
       .addCase(serverFormSubmit.fulfilled, ( state, action ) => {
         state.loading = false;
-        console.log('serverFormSubmit', action.payload);
+        state.serverOrder = action.payload;
       })
   }
 });
@@ -209,5 +210,6 @@ export const serverDate = ( state ) => state.serverResource.serverDate;
 export const serverComment = ( state ) => state.serverResource.serverComment;
 export const serverResouceList = ( state ) => state.serverResource.serverResouceList;
 export const serverModResource = ( state ) => state.serverResource.serverModResource;
+export const serverOrder = ( state ) => state.serverResource.serverOrder;
 
 export default serverResourceSlice.reducer;

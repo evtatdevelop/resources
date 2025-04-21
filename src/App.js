@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import styles from './App.module.scss';
-import { getResourceList, resourceTypes, } from "./appSlice";
+import { getResourceList, resourceTypes, formSubmit, order, clearOrder, setResourceType, } from "./appSlice";
 import { getRemote, remoteUser, remoteLoading, } from "./features/user/userSlice";
 import Input from './features/components/input';
 import Select from './features/components/select';
@@ -11,14 +11,13 @@ import { ServerResouce } from './features/serverResouce/serverResouce';
 import { clearFileForm, 
   fileAction, fileResourceName, fileValue, fileReasons, filePlace, filePeriod, fileResourceManager, fileManagerAccess,
   fileUsers, fileDate, fileNotes,  fileBoss, fileModResource,
-  setFileAction, fileFormSubmit, 
+  setFileAction, 
 } from './features/fileResouce/fileResourceSlice';
 import { deployDate } from './config';
-import { setResourceType } from './appSlice';
 import { setServerAction } from './features/serverResouce/serverResourceSlice';
 import { serverComment, clearServerForm, serverPlace, serverType, serverGroup, serverOperSystem, serverResourceManager,
   serverResourceName, servCores, servMem, servStorage, sorageComment, serverNets, netsComment, serverPeriod, serverDate, 
-  serverReasons, serverModResource, serverFormSubmit, serverAction
+  serverReasons, serverModResource, serverAction
 } from './features/serverResouce/serverResourceSlice';
 
 function App() {
@@ -59,23 +58,22 @@ function App() {
   const serverPeriodVal = useSelector(serverPeriod);
   const serverDateVal = useSelector(serverDate);
   const serverModRes = useSelector(serverModResource);
+  const orderData = useSelector(order);
+
+  const [resource, setResource] = useState(null);
+
+  console.log('orderData', orderData);
+  
+  const submit = () => {
+    resource?.type_code === 'FILE' ? fileSubmit() : serverSubmit();
+    setResource(null);
+    dispatch(setResourceType(null));
+    // document.getElementById('requestType')?.focus();
+  }
 
   const fileSubmit = () => {
-    // console.log('action', action);
-    // console.log('resourceName', resourceName);
-    // console.log('fileVal', fileVal);
-    // console.log('fileReason', fileReason);
-    // console.log('filePlace', filePlaceVal);
-    // console.log('filePeriods', filePeriods);
-    // console.log('fileDateData', fileDateData);
-    // console.log('fileResManager', fileResManager);
-    // console.log('fileManagAccess', fileManagAccess);
-    // console.log('fileNote', fileNote);
-    // console.log('fileUserList', fileUserList);
-    // console.log('fileBossData', fileBossData);
-    // console.log('fileModRes', fileModRes);
-
-    dispatch(fileFormSubmit({
+    dispatch(formSubmit({
+      'resource_type': resource?.type_code,
       "new_or_modify": action === "CREATE" ? 'NEW' : 'MODIFY', 
       'file_name': resourceName,
       'file_size_gb': fileVal,
@@ -95,33 +93,12 @@ function App() {
       'file_path': fileModRes ? fileModRes[1] : null,
       'file_its81_id': fileModRes ? fileModRes[0] : null,
     }));
-
     dispatch(clearFileForm());
-    setResource(null);
-    dispatch(setResourceType(null));
-    document.getElementById('requestType')?.focus();
   }
 
   const serverSubmit = () => {
-    // console.log('serverReason ', serverReason);
-    // console.log('serverPlaceVal ', serverPlaceVal);
-    // console.log('servType ', servType);
-    // console.log('servGroup ', servGroup);
-    // console.log('serverOperSystem ', servOperSystem);
-    // console.log('serverResManager ', serverResManager);
-    // console.log('serverName ', serverName);
-    // console.log('servCoresVal ', servCoresVal);
-    // console.log('servMemVal ', servMemVal);
-    // console.log('servStorageVal ', servStorageVal);
-    // console.log('sorageCommentVal ', sorageCommentVal);
-    // console.log('serverNetsVal ', serverNetsVal);
-    // console.log('netsCommentVal ', netsCommentVal);
-    // console.log('serverPeriodVal ', serverPeriodVal);
-    // console.log('serverDateVal ', serverDateVal);
-    // console.log('serverCommentVal ', serverCommentVal);
-    // console.log('serverModRes ', serverModRes);
-
-    dispatch(serverFormSubmit({
+    dispatch(formSubmit({
+      'resource_type': resource?.type_code,
       "new_or_modify": servAction === "CREATE" ? 'NEW' : 'MODIFY', 
       'serverReason': serverReason,
       'serverPlaceVal': serverPlaceVal,
@@ -141,14 +118,8 @@ function App() {
       'serverCommentVal': serverCommentVal,
       'serverModRes': serverModRes,
     }));
-
     dispatch(clearServerForm());
-    setResource(null);
-    dispatch(setResourceType(null));
-    document.getElementById('requestType')?.focus();
   }
-
-  const [resource, setResource] = useState(null);
 
   useEffect(() => {
     if ( localStorage.getItem('deploy') !== deployDate ) {
@@ -180,6 +151,9 @@ function App() {
           <h1>Автоматизированная система управления заявками (асуз)</h1>
           <h2>Запрос на создание / расширение файловых и серверных ресурсов</h2>
         </header>
+
+
+
         { !remoteLoad
           ? <form>
               <fieldset>
@@ -242,7 +216,8 @@ function App() {
               { ( resource?.type_code === 'FILE' && fileBossData ) 
                 || ( resource?.type_code === 'SERVER' && serverCommentVal)
                 ? <button type='button' className={styles.submitBtn}
-                    onClick={ () => resource?.type_code === 'FILE' ? fileSubmit() : serverSubmit() }
+                    // onClick={ () => resource?.type_code === 'FILE' ? fileSubmit() : serverSubmit() }
+                    onClick={ () => submit() }
                   >Отправить запрос на согласование</button>
                 : null
               }
@@ -250,6 +225,8 @@ function App() {
             </form>
           : <div className={styles.loadScreen}><TestLoader/></div>
         }
+
+
 
       </main>
     </div>

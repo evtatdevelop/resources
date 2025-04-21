@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getResourceTypes } from "./appSliceAPI";
+import { getResourceTypes, submit } from "./appSliceAPI";
 
 const initialState = {
   loading: false,
@@ -7,9 +7,11 @@ const initialState = {
   langMode: null,
   resourceTypes: [],
   resourceType: null,
+  order: {},
 }
 
 export const getResourceList = createAsyncThunk( 'app/getResourceList', async () => await getResourceTypes({}) );
+export const formSubmit   = createAsyncThunk( 'app/formSubmit', async ( data ) => await submit(data) );
 
 export const appSlice = createSlice({
   name: 'app',
@@ -27,6 +29,11 @@ export const appSlice = createSlice({
 
     setResourceType: (state, action) => {
       state.resourceType = action.payload;
+      state.order = {};
+    },
+
+    clearOrder: (state, action) => {
+      state.order = {};
     },
   },
 
@@ -38,15 +45,21 @@ export const appSlice = createSlice({
         state.resourceTypes = action.payload;
       })
 
+      .addCase(formSubmit.pending, ( state ) => { state.loading = true })
+      .addCase(formSubmit.fulfilled, ( state, action ) => {
+        state.loading = false;
+        state.order = action.payload;
+      })
   }
 });
 
-export const { setTheme, setLangMode, setResourceType } = appSlice.actions;
+export const { setTheme, setLangMode, setResourceType, clearOrder } = appSlice.actions;
 
 export const darkTheme = ( state ) => state.app.darkTheme;
 export const langMode = ( state ) => state.app.langMode;
 export const loading = ( state ) => state.app.loading;
 export const resourceTypes = ( state ) => state.app.resourceTypes;
 export const resourceType = ( state ) => state.app.resourceType;
+export const order = ( state ) => state.app.order;
 
 export default appSlice.reducer;

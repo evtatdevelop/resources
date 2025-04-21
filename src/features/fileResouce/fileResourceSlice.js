@@ -18,6 +18,7 @@ const initialState = {
   fileBoss: null,
   fileResourcesList: [],
   fileModResource: null,
+  fileOrder: {},
 }
 
 export const getFilePlaceList = createAsyncThunk( 'fileResource/getFilePlaceList', async () => await getFilePlace({}) );
@@ -138,7 +139,7 @@ export const fileResourceSlice = createSlice({
       .addCase(fileFormSubmit.pending, ( state ) => { state.loading = true })
       .addCase(fileFormSubmit.fulfilled, ( state, action ) => {
         state.loading = false;
-        console.log('fileFormSubmit', action.payload);
+        state.fileOrder = action.payload;
       })
 
   }
@@ -165,5 +166,6 @@ export const fileDate = ( state ) => state.fileResource.fileDate;
 
 export const fileResourcesList = ( state ) => state.fileResource.fileResourcesList;
 export const fileModResource = ( state ) => state.fileResource.fileModResource;
+export const fileOrder = ( state ) => state.fileResource.fileOrder;
 
 export default fileResourceSlice.reducer;
